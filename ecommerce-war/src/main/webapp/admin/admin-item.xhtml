@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/WEB-INF/dashboard-template.xhtml">
+	<ui:define name="title">Admin Item</ui:define>
+	<ui:define name="pageHeader">Admin Item</ui:define>
+	<ui:define name="Contents">
+		<script type="text/javascript">	
+			$(document).ready(function() {
+				$('.datepicker').datepicker({
+					format: 'yyyy/mm/dd',
+					autoclose: true,
+					todayHighlight: true
+				});
+		 	});	 	
+		</script>
+		<h:form styleClass="form-inline">
+			<div class="col-md-12">
+				<div class="form-group MarRight10">
+					<h:outputLabel value="Category"
+						styleClass="control-label MarRight10 MarTop5" />
+					<h:selectOneMenu
+						styleClass="form-control multipleSelectExample MarTop10">
+						<f:selectItem itemLabel="Men" />
+						<f:selectItem itemLabel="Women" />
+						<f:selectItem itemLabel="Child" />
+					</h:selectOneMenu>
+				</div>
+
+				<div class="form-group MarRight10">
+					<h:outputLabel value="Sub-Category"
+						styleClass="control-label MarRight10 MarTop5" />
+					<h:selectOneMenu
+						styleClass="form-control multipleSelectExample MarTop10">
+						<f:selectItem itemLabel="Blouse " />
+						<f:selectItem itemLabel="T-Shirt " />
+						<f:selectItem itemLabel="Sport Shirt " />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group MarRight10">
+					<h:outputLabel value="Child Category"
+						styleClass="control-label MarRight10 MarTop5" />
+					<h:selectOneMenu
+						styleClass="form-control multipleSelectExample MarTop10">
+						<f:selectItem itemLabel="Blouse " />
+						<f:selectItem itemLabel="T-Shirt " />
+						<f:selectItem itemLabel="Sport Shirt " />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group MarTop5">
+					<h:commandLink styleClass="btn btn-primary">
+						<i class="fa fa-search"></i>
+					</h:commandLink>
+				</div>
+			</div>
+		</h:form>
+		<h:form styleClass="form-horizontal">
+			<div class="form-group">
+				<div class="col-md-12 table-responsive">
+					<h:dataTable value="#{itemListBean.items}" var="p"
+						styleClass="table table-striped table-hover MarTop20">
+						<h:column>
+							<f:facet name="header">Category</f:facet>#{p.category.name}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Sub-Category</f:facet>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Child Category</f:facet>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Seller</f:facet>#{p.owner.nickname}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Product Name</f:facet>#{p.name}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Action</f:facet>
+							<h:link styleClass="tooltip.in btn btn-default"
+								outcome="/admin/item-detail">
+								<f:param name="id" value="#{p.id}"></f:param>
+								<i class="fa fa-eye"></i>
+							</h:link>
+						</h:column>
+
+					</h:dataTable>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

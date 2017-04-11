@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:post="http://java.sun.com/jsf/composite/post"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/dashboard-template.xhtml">
+	<ui:define name="title">Delivery Schedule Report</ui:define>
+	<ui:define name="scriptss">
+		<script type="text/javascript">	
+		$(document).ready(function() {
+			$('.datepicker').datepicker({
+				format: 'yyyy/mm/dd',
+				autoclose: true,
+				todayHighlight: true
+			});
+	 	});	 
+	
+		</script>	
+	</ui:define>	
+	<ui:define name="Contents">
+	<!-- Page Heading-->
+		
+		<div class="row">
+			<div class="col-md-12">
+				<h2>Delivery Schedule Report</h2>
+				<ol class="breadcrumb">
+					<li><h:link outcome="/admin/home" value="Home"/></li>
+					<li class="active">Delivery Schedule Report</li>
+				</ol>
+			</div>
+		</div>
+		
+		
+		<!--  Date Timem Picker -->
+			<h:form styleClass="form-horizontal">			
+				<div class="box-body">
+					<div class="form-group">
+						<h:outputLabel value="From Date:" styleClass="col-md-2 control-label" />
+				
+						<div class="col-md-4">					
+							<div class="form-group">						
+								<div class="input-group">							      		
+									<h:inputText id="date" styleClass="form-control datepicker" p:data-provide="datepicker" p:placeholder="MM/DD/YYYY" converter="#{dateConverter}" />
+										<div class="input-group-addon">
+											 <i class="fa fa-calendar"></i>
+										</div>
+								</div>							
+							</div>																			
+						</div>
+					</div> 
+					<div class="form-group">
+						<h:outputLabel value="To Date:" styleClass="col-md-2 control-label" />
+					
+						<div class="col-md-4">					
+							<div class="form-group">						
+								<div class="input-group">							      		
+									<h:inputText id="date1" styleClass="form-control datepicker" p:data-provide="datepicker" p:placeholder="MM/DD/YYYY" converter="#{dateConverter}" />
+										<div class="input-group-addon">
+											 <i class="fa fa-calendar"></i>
+										</div>
+								</div>							
+							</div>																			
+						</div>
+					</div> 
+					
+				<div class="form-group">
+					<h:outputLabel value="Delivery Status:" styleClass="col-md-2 control-label" />
+			
+					<div class="col-sm-4">
+						<h:selectOneMenu  styleClass="form-control">
+							<f:selectItem itemLabel="Pending" />
+							<f:selectItem itemLabel="Complete" />
+						</h:selectOneMenu>
+					</div>
+				</div><br/>	
+				<div class="form-group">
+					<div class="col-md-2"></div>
+					<div class="col-md-4">					
+						<button type="submit" class="btn btn-primary" >Preview</button>			               
+			            <button type="reset"  class="btn btn-default" >Cancel</button>
+			         </div>
+			     </div>
+			     
+			  </div>    				
+		</h:form>	
+		
+	</ui:define>
+
+</ui:composition>
+</html>

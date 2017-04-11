@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://java.sun.com/jsf/html">
+	<ui:composition template="/WEB-INF/shop-template.xhtml">	
+		
+		<ui:define name="title">My Address</ui:define>
+		<ui:define name="Contents">	
+		<div class="row">	
+			<div class="col-md-12">
+			<h4 class="page-header">Address</h4>
+			</div>
+		</div>
+		<div class="row">
+		 	<div class="col-md-9">      	 		
+      	 			<h:form class="form-horizontal">
+         		
+	         			<div class="form-group">
+	            		<h:outputLabel value="Postal Code" for="pc" styleClass="col-lg-2 control-label col-lg-offset-2" />
+	            		<div class="col-lg-5">
+	            		<h:inputText styleClass="form-control" value="" p:placeholder="Enter Postal Code" id="pc"/>
+	            		</div>
+	            		</div>
+            		
+	            		<div class="form-group">
+	            		<h:outputLabel value="Country" for="c" styleClass="col-lg-2 control-label  col-lg-offset-2" />
+	            		<div class="col-lg-5">
+	            		<h:selectOneMenu  styleClass="form-control" value="#{countryBean}" id="c"  >								
+							<f:selectItem itemLabel="-- Select Country --" />
+							<f:selectItems value="#{countryBean.countries}" var="r" itemLabel="#{r.name}" itemValue="#{r.name}"></f:selectItems>						
+						</h:selectOneMenu>
+	            		</div>
+	            		</div>
+            		
+	            		<div class="form-group">
+	            		<h:outputLabel value="State" for="st" styleClass="col-lg-2 control-label  col-lg-offset-2" />
+	            		<div class="col-lg-5">
+	            		<h:selectOneMenu  styleClass="form-control" value="#{stateBean}" id="st"  >								
+							<f:selectItem itemLabel="-- Select State --" />
+							<f:selectItems value="#{stateBean.states}" var="r" itemLabel="#{r.name}" itemValue="#{r.name}"></f:selectItems>						
+						</h:selectOneMenu>
+	            		</div>
+	            		</div> 
+            		
+	            		<div class="form-group">
+	            		<h:outputLabel value="City" for="city" styleClass="col-lg-2 control-label  col-lg-offset-2" />
+	            		<div class="col-lg-5">
+	            		<h:selectOneMenu  styleClass="form-control" value="#{cityBean}" id="city"  >								
+							<f:selectItem itemLabel="-- Select City --" />
+							<f:selectItems value="#{cityBean.cities}" var="r" itemLabel="#{r.name}" itemValue="#{r.name}"></f:selectItems>						
+						</h:selectOneMenu>
+	            		</div>
+	            		</div>
+            		
+	            		<div class="form-group">
+	            		<h:outputLabel value="Phone" for="phone" styleClass="col-lg-2 control-label  col-lg-offset-2" />
+	            		<div class="col-lg-5">
+	            		<h:inputText styleClass="form-control" value="" p:placeholder="Enter Phone No" id="phone"/>
+	            		</div>
+	            		</div>  
+            		
+            		
+	            		<div class="form-group">
+	            		<h:outputLabel value="Address" for="address" styleClass="col-lg-2 control-label  col-lg-offset-2" />
+	            		<div class="col-lg-5">
+	            		<h:inputTextarea styleClass="form-control" value="" p:placeholder="Enter Address" id="address" rows="7"/>
+	            		</div>
+	            		</div>
+            		
+	            		<div class="form-group">            		
+	            		<div class="col-lg-8 col-lg-offset-4">            		
+	            		<h:commandButton action="#{profileBean.addAction()}" value="Save"
+							styleClass="btn btn-primary MarRight10" /> 					
+						<button type="reset" class="btn btn-default">Cancel</button>	    				            		
+	            		</div>
+	            		</div>
+            	</h:form>
+			 </div>		
+			 <div class="col-md-3">
+				<ui:include src="/WEB-INF/shop-side-menu.xhtml" />
+			</div>
+		 </div>
+		 <script type="text/javascript">	
+			$( document ).ready(function() {			
+				$("#li_address").addClass("active");
+		 	});	 
+		</script>  
+		</ui:define>	
+	</ui:composition>
+</html>

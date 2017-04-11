@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title><ui:insert name="title">Home</ui:insert> | Admin</title>
+	
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="../resources/css/bootstrap.css" />
+	<link rel="stylesheet" href="../resources/css/font-awesome.min.css" />	
+	<link rel="stylesheet" href="../resources/css/bootstrap-datepicker.min.css" /> 
+	<link rel="stylesheet" href="../resources/css/custom.css" />
+	<link rel="stylesheet" href="../resources/css/select2-bootstrap.min.css" />
+	<link rel="stylesheet" href="../resources/css/select2.min.css" />	
+		
+	
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />	
+	<h:outputStylesheet library="css" name="bootstrap.css" />	
+	<h:outputStylesheet library="css" name="font-awesome.min.css" />	
+	<h:outputStylesheet library="css" name="bootstrap-datepicker.min.css" />
+	<h:outputStylesheet library="css" name="custom.css" />
+	<h:outputStylesheet library="css" name="select2-bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="select2.min.css" />
+	
+
+	<h:outputScript library="js" name="jquery.js" />
+	<h:outputScript library="js" name="bootstrap.js" />
+	<h:outputScript library="js" name="jqBootstrapValidation.js" />
+	<h:outputScript library="js" name="bootstrap-datepicker.min.js" />
+	<h:outputScript library="js" name="smartresize.js" />
+	<h:outputScript library="js" name="select2.js" />
+	
+	
+
+	<script >
+	var CURRENT_URL = window.location.href.split('#')[0].split('?')[0],
+    $BODY = $('body'),
+    $MENU_TOGGLE = $('#menu_toggle'),
+    $SIDEBAR_MENU = $('#sidebar-menu'),
+    $SIDEBAR_FOOTER = $('.sidebar-footer'),
+    $LEFT_COL = $('.left_col'),
+    $RIGHT_COL = $('.right_col'),
+    $NAV_MENU = $('.nav_menu'),
+    $FOOTER = $('footer');
+
+	 function init_sidebar() {
+
+		 var setContentHeight = function () {			 
+				// reset height
+			$('.right_col').css('min-height', $(window).height());
+
+				var bodyHeight = $('body').outerHeight(),
+					footerHeight = $('body').hasClass('footer_fixed') ? -10 : $('footer').height(),
+					leftColHeight = $('.left_col').eq(1).height() + $('.sidebar-footer').height(),
+					contentHeight = bodyHeight &lt; leftColHeight ? leftColHeight : bodyHeight;
+					
+				// normalize content
+				contentHeight -= $('.nav_menu').height() + footerHeight;
+
+				$('.right_col').css('min-height', contentHeight);
+			};
+			
+			$('#sidebar-menu').find('a').on('click', function(ev) {
+				 
+				  console.log('clicked - sidebar_menu');
+			        var $li = $(this).parent();
+
+			        if ($li.is('.active')) {
+			            $li.removeClass('active active-sm');
+			            $('ul:first', $li).slideUp(function() {			            	
+			                setContentHeight();
+			            });
+			        } else {
+			            // prevent closing menu if we are on child menu
+			            if (!$li.parent().is('.child_menu')) {
+			            	$('#sidebar-menu').find('li').removeClass('active active-sm');
+			            	$('#sidebar-menu').find('li ul').slideUp();
+			            }else
+			            {
+							if ( $('body').is( ".nav-sm" ) )
+							{
+								$('#sidebar-menu').find( "li" ).removeClass( "active active-sm" );
+								$('#sidebar-menu').find( "li ul" ).slideUp();
+							}
+						}
+			            $li.addClass('active');
+
+			            $('ul:first', $li).slideDown(function() {
+			                setContentHeight();
+			            });
+			        }
+			    });
+		    
+			// toggle small or large menu 
+		  $('.menu_toggle').on('click', function() {
+			 
+				console.log('clicked - menu toggle');
+				
+				if ($('body').hasClass('nav-md')) {  
+					$('#sidebar-menu').find('li.active ul').hide();
+					$('#sidebar-menu').find('li.active').addClass('active-sm').removeClass('active');
+				} else {
+					$('#sidebar-menu').find('li.active-sm ul').show();
+					$('#sidebar-menu').find('li.active-sm').addClass('active').removeClass('active-sm');
+				}
+
+				$('body').toggleClass('nav-md nav-sm');
+
+			setContentHeight();
+		});
+
+		// check active menu
+		$('#sidebar-menu').find('a[href="' + CURRENT_URL + '"]').parent('li').addClass('current-page');
+
+		$('#sidebar-menu').find('a').filter(function () {
+				return this.href == CURRENT_URL;
+			}).parent('li').addClass('current-page').parents('ul').slideDown(function() {
+				setContentHeight();
+			}).parent().addClass('active');
+
+			// recompute content when resizing
+			$(window).smartresize(function(){  
+				setContentHeight();
+			});
+
+			setContentHeight();
+
+			// fixed sidebar
+			if ($.fn.mCustomScrollbar) {
+				$('.menu_fixed').mCustomScrollbar({
+					autoHideScrollbar: true,
+					theme: 'minimal',
+					mouseWheel:{ preventDefault: true }
+				});
+			}
+			
+		 };
+
+		//Sidebar
+
+		var randNum = function() {
+			  return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
+		}
+						 
+	 $( document ).ready(function() {
+
+			 init_sidebar();
+			// Panel toolbox
+		  $('.collapse-link').on('click', function() {
+		        var $BOX_PANEL = $(this).closest('.x_panel'),
+		            $ICON = $(this).find('i'),
+		            $BOX_CONTENT = $BOX_PANEL.find('.x_content');
+		        
+		        // fix for some div with hardcoded fix class
+		        if ($BOX_PANEL.attr('style')) {
+		            $BOX_CONTENT.slideToggle(200, function(){
+		                $BOX_PANEL.removeAttr('style');
+		            });
+		        } else {
+		            $BOX_CONTENT.slideToggle(200); 
+		            $BOX_PANEL.css('height', 'auto');  
+		        }
+
+		        $ICON.toggleClass('fa-chevron-up fa-chevron-down');
+		    });
+
+		    $('.close-link').click(function () {
+		        var $BOX_PANEL = $(this).closest('.x_panel');
+
+		        $BOX_PANEL.remove();
+		    });
+		 // /Panel toolbox
+		 // Tooltip
+		    $('[data-toggle="tooltip"]').tooltip({
+		        container: 'body'
+		    });
+
+
+		    if ($(".js-switch")[0]) {
+		        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+		        elems.forEach(function (html) {
+		            var switchery = new Switchery(html, {
+		                color: '#26B99A'
+		            });
+		        });
+		    }
+
+		    $(".expand").on("click", function () {			   
+		        $(this).next().slideToggle(200);
+		        $expand = $(this).find(">:first-child");
+
+		        if ($expand.text() == "+") {
+		            $expand.text("-");
+		        } else {
+		            $expand.text("+");
+		        }
+		    });
+			
+	 	});
+	</script>
+	<ui:insert name="scriptss"></ui:insert>
+</h:head>
+
+<body class="nav-md">
+	<ui:insert name="header"></ui:insert>
+	
+    <div class="container body">
+      <div class="main_container">
+      
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <!-- sidebar menu -->
+        	<ui:include src="/WEB-INF/dashboard-side-menu.xhtml"/>
+            <!-- /sidebar menu -->
+          </div>
+        </div>
+        
+		<!-- top navigation -->
+       	<ui:include src="/WEB-INF/dashboard-top-menu.xhtml" />
+ 		<!-- /top navigation -->
+ 		
+        <!-- page content -->
+        <div class=" main right_col" role="main">     
+			<div style="padding-left: 20px;padding-right: 20px; min-height: 800px;">			 
+				<ui:insert name="Contents"></ui:insert>				
+			</div>         
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <ui:include src="/WEB-INF/dashboard-button-menu.xhtml" />        
+        <!-- /footer content -->
+        
+      </div>
+    </div>
+ </body>   
+
+	
+
+</html>

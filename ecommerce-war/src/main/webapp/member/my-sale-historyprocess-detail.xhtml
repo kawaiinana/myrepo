@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:order="http://java.sun.com/jsf/composite/order"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition template="/WEB-INF/shop-template.xhtml">
+
+	<ui:define name="title">My Sale Processing History</ui:define>
+	<ui:define name="Contents">
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="page-header">Sale History Processing Detail</h4>
+			</div>
+		</div>
+		<div class="row">
+
+		<div class="col-md-9">
+			<h:form enctype="multipart/form-data">
+				<div class="col-md-12 content-wrap">					
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">Order Information</div>
+								<div class="table-responsive">
+									<table class="table table-hover">
+										<tbody>
+											<tr>
+												<td><h:outputText value="Order Number" /></td>
+												<td style="width: 69%"><h:outputText value="PO-001" />
+												</td>
+											</tr>
+											<tr>
+												<td><h:outputText value="Order Status" /></td>
+												<td style="width: 69%"><h:outputText value="Processing" />
+												</td>
+											</tr>
+											<tr>
+												<td><h:outputText value="Order Date" /></td>
+												<td style="width: 69%"><h:outputText
+														value="2015-10-03 11:17:39" /></td>
+											</tr>
+
+											<tr>
+												<td><h:outputText value="Recipient Name" /></td>
+												<td style="width: 69%"><h:outputText value="Daw Mya" />
+												</td>
+											</tr>
+											<tr>
+												<td><h:outputText value="Recipient Phone" /></td>
+												<td style="width: 69%"><h:outputText value="01-5102658" />
+												</td>
+											</tr>
+											<tr>
+												<td><h:outputText value="Recipient Address" /></td>
+												<td style="width: 69%"><h:outputText
+														value="No.1, TiDar Road, middle block, between 18 street and 19th street Latha
+											Town - Yangon
+											State - Yangon Region
+											Country - Myanmar [Burma]" /></td>
+											</tr>
+											<tr>
+												<td><h:outputText value="Remark" /></td>
+												<td style="width: 69%"><h:outputText /></td>
+											</tr>
+											<tr>
+												<td colspan="2"><h:link
+														outcome="/member/my-sale-history"
+														styleClass="btn btn-primary" value="Delivered" /></td>
+
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="panel panel-default">
+								<div class="panel-heading">Order Item Detail</div>
+								<div class="table-responsive">
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Seller</th>
+												<th>Item</th>
+												<th>Color</th>
+												<th>Size</th>
+												<th>Price</th>
+												<th>Qty</th>
+												<th>Amount</th>
+												<th>Sub total</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th scope="row">1</th>
+												<td><h:link value="Daw Aye" styleClass="tooltip.in"
+														title="Go To Daw Aye's Shop" /></td>
+												<td>Skirt</td>
+												<td>Yellow</td>
+												<td>Middle</td>
+												<td>3,000MMK</td>
+												<td>10</td>
+												<td>30,000MMK</td>
+												<td>30,000MMK</td>
+
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="well">
+								<h4>Leave a Comment:</h4>
+								<form role="form">
+									<div class="form-group">
+										<textarea class="form-control" rows="3"></textarea>
+									</div>
+									<h:link outcome="/member/my-sale-historypend-detail"
+										styleClass="btn btn-primary" value="Submit" />
+									<!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+
+								</form>
+							</div>
+							<hr />
+
+							<!-- Posted Comments -->
+
+							<!-- Comment -->
+							<div class="media">
+								<a class="pull-left" href="#"> <h:graphicImage
+										styleClass="img-responsive img-thumbnail" library="img"
+										name="126.jpg" width="64px" height="64px" />
+
+								</a>
+								<div class="media-body">
+									<h4 class="media-heading">
+										Swe Swe <small>August 25, 2014 at 9:30 PM</small>
+									</h4>
+									I want to order 10 pieces.
+								</div>
+							</div>
+
+							<br />
+							<!-- Comment -->
+							<div class="media">
+								<a class="pull-left" href="#"> <h:graphicImage
+										styleClass="img-responsive img-thumbnail" library="img"
+										name="126.jpg" width="64px" height="64px" />
+								</a>
+								<div class="media-body">
+									<h4 class="media-heading">
+										Tun Tun <small>August 25, 2014 at 9:30 PM</small>
+									</h4>
+									Sorry I have only left 5 pieces.Do you want to order.
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<br />
+
+				</div>
+			</h:form>
+		</div>
+			<div class="col-md-3">
+			<ui:include src="/WEB-INF/shop-side-menu.xhtml" />
+		</div>
+		</div>
+		<script type="text/javascript">	
+			$( document ).ready(function() {			
+				$("#li_sale").addClass("active");
+		 	});
+				 
+		</script>
+	</ui:define>
+</ui:composition>
+</html>

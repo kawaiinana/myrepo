@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"     
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://java.sun.com/jsf/html">
+	<ui:composition template="/WEB-INF/shop-template.xhtml">	
+		
+		<ui:define name="title">Cart</ui:define>
+		<ui:define name="Contents">
+		<br></br>
+			
+		
+		<h1 class="header-class" style="text-align: center;"><b>Thank You</b></h1>
+		<h5 style="text-align: center;">Your order was completed successfully</h5>
+		<br></br>
+		<br></br>
+		<h4 style="text-align: center;">Please keep it for your records.</h4>
+		<h4 style="text-align: center;">You can check the status of your order in your purchase history.</h4>
+		<br/>
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4">
+		<h:graphicImage class="img-responsive" library="img" alt="Cinque Terre"  name="thank.jpg" />
+		</div>
+		<div class="col-lg-4"></div>									
+	
+		</ui:define>	
+		</ui:composition>
+</html>

@@ -1,0 +1,78 @@
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<div class="modal-dialog">
+		<div class="modal-content">		
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">X</button>
+				<h4 class="modal-title">Quatity Break</h4>
+			</div>
+			<div class="modal-body">
+				<h:form>
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-4">
+								<h:outputLabel value="From Qty"
+									styleClass="control-label pull-right" />
+							</div>
+							<div class="col-md-6">
+								<h:inputText styleClass="form-control" />
+							</div>
+						</div>
+						<br />
+						<div class="row">
+							<div class="col-md-4">
+								<h:outputLabel value="To Qty"
+									styleClass="control-label pull-right" />
+							</div>
+							<div class="col-md-6">
+								<h:inputText styleClass="form-control" />
+							</div>
+						</div>
+						<br />
+						<div class="row">
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
+								<h:commandButton value="Save" styleClass="lnk_price lnk_qty btn btn-primary" />
+								<button type="reset" class="btn btn-default">Cancel</button>
+							</div>
+						</div>
+						<br/>
+						<br/>
+						<div class="row">
+							<div class="col-md-12">
+								<h:form>
+									<h:dataTable value="#{priceBean.priceLists}" var="p"
+										styleClass="table table-bordered table-hover">
+										<h:column>
+											<f:facet name="header">Minity Quatity</f:facet>#{p.minQty}
+											</h:column>
+										<h:column>
+											<f:facet name="header">Maximum Quantity</f:facet>#{p.maxQty}
+											</h:column>
+										<h:column>
+											<f:facet name="header">Edit</f:facet>
+											<h:link>
+												<i class="fa fa-edit"></i>
+											</h:link>
+										</h:column>
+										<h:column>
+											<f:facet name="header">Delete</f:facet>
+											<h:link>
+												<i class="fa fa-remove"></i>
+											</h:link>
+										</h:column>
+									</h:dataTable>
+								</h:form>
+							</div>
+						</div>
+						
+
+					</div>
+				</h:form>
+			</div>
+			<div class="modal-footer"></div>
+		</div>
+	</div>
+</div>

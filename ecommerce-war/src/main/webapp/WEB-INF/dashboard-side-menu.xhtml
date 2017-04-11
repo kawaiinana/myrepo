@@ -1,0 +1,74 @@
+<div 
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+      
+            <div class="navbar nav_title" style="border: 0;">
+              <h:link outcome="/admin/home" class="site_title" > <span>Admin Home!</span></h:link>
+            </div>
+
+            <div class="clearfix"></div>
+            <br />
+
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                  <li><h:link outcome="/admin/home"><i class="fa fa-dashboard"></i>Home</h:link></li>
+                  <!-- <li><h:link outcome="/admin/transfer-sale-profit"><i class="fa fa-cog"></i>Transfer Management</h:link></li> -->	
+                  
+                  <li><h:link outcome="/admin/orderhistory"><i class="fa fa-cog"></i>Order Management</h:link></li>                   
+                  <li><h:link outcome="/admin/user-list"><i class="fa fa-users"></i>User Management</h:link></li>
+                  <li><h:link outcome="/admin/admin-item"><i class="fa fa-cog"></i>Item Management</h:link></li>
+               
+                  
+                  <li><a><i class="fa fa-cog" aria-hidden="true"></i>Product Master<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">                       
+                      <li><h:link outcome="/admin/brand" value="Brand"/></li>                                       
+                      <li><h:link outcome="/admin/category" value="Category"/></li>                   
+                      <li><h:link value="Comission Rate" outcome="/admin/commission-rate" /></li>                       
+                      <li><h:link outcome="/admin/itemstatelist" value="Item State"/></li> 
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-cog" aria-hidden="true"></i>Location Master<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><h:link outcome="/admin/currency" value="Currency"/></li>
+                      <li><h:link outcome="/admin/country" value="Country"/></li>
+                      <li><h:link outcome="/admin/state" value="State"/></li>
+                      <li><h:link outcome="/admin/city" value="City"/></li>                    
+                    </ul>
+                  </li>
+                  
+                  <!-- <li><a><i class="fa fa-money"></i>Payment<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><h:link outcome="/admin/payment-provider" value="Payment Provider"/></li>
+                    </ul>
+                  </li>
+                   <li><a><i class="fa fa-list"></i>Report<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><h:link outcome="/admin/salehistory-report" value="Sales History Report"/></li>
+                      <li><h:link outcome="/admin/delivery-schedule-report" value="Delivery Schedule Report"/></li>
+                      <li><h:link outcome="/admin/commission-income-report" value="Commission Income Report"/></li>   
+                      <li><h:link outcome="/admin/transfer-sale-report" value="Transfer Sales Report"/></li>                        
+                    </ul>
+                  </li> -->                                 
+                </ul>
+              </div>              
+
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+              
+            </div>
+         <!-- /menu footer buttons -->
+        
+       
+   
+   </div>  
+     
+	        

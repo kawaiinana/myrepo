@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:post="http://java.sun.com/jsf/composite/post"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/WEB-INF/dashboard-template.xhtml">
+	<ui:define name="title">Category</ui:define>
+	<ui:define name="pageHeader">Category</ui:define>
+	<ui:define name="Contents">
+		<script type="text/javascript">	
+			$( document ).ready(function() {			
+				$( ".lnk_cat" ).click(function( event ) {				
+					  event.preventDefault();				 
+					  $('#div_cat').modal('toggle');					 
+				});
+		 	});	
+			
+		 	 
+	</script>
+		<br />
+		<h:form styleClass="form-inline">
+			<div class="col-md-12">
+				<div class="form-group">
+					<h:link outcome="/admin/payment"
+						styleClass="lnk_cat btn btn-default">
+						<i class="fa fa-plus"></i>
+					</h:link>
+				</div>
+				<div class="form-group">
+					<h:commandLink styleClass="btn btn-default"
+						onclick="$('#myModald').modal('show');" immediate="true">
+						<i class="fa fa-trash-o"></i>
+						<f:ajax execute="@this" render=":myForm" />
+					</h:commandLink>
+				</div>
+
+				<div class="form-group MarRight10">
+					<h:outputLabel value="Category"
+						styleClass="control-label  MarRight10" />
+					<h:selectOneMenu styleClass="form-control multipleSelectExample MarTop5">
+						<f:selectItem itemLabel="Men" />
+						<f:selectItem itemLabel="Women Accessories" />
+						<f:selectItem itemLabel="Child" />
+					</h:selectOneMenu>
+				</div>
+
+				<div class="form-group MarRight10">
+					<h:outputLabel value="Sub-Category"
+						styleClass=" control-label  MarRight10" />
+					<h:selectOneMenu styleClass="form-control multipleSelectExample MarTop5">
+						<f:selectItem itemLabel="Blouse " />
+						<f:selectItem itemLabel="T-Shirt " />
+						<f:selectItem itemLabel="Sport Shirt " />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group">
+				<h:commandLink action="#" styleClass="btn btn-primary form-control">
+					<i class="fa fa-search"></i>
+				</h:commandLink>
+			</div>
+			</div>
+		</h:form>
+		<div class="modal fade" id="myModald" p:tabindex="-1" p:role="dialog"
+			p:aria-labelledby="myModal" p:aria-hidden="true"
+			p:data-keyboard="false" p:data-backdrop="static">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<h:form id="myForm">
+						<div class="modal-header">
+							<h4>Confirm?</h4>
+						</div>
+						<div class="modal-body">
+							<h:outputLabel value="Are you sure to delete?" />
+						</div>
+						<h:panelGroup layout="block" styleClass="modal-footer">
+							<h:commandLink value="Yes" immediate="true"
+								styleClass="btn btn-primary"
+								oncomplete="$('#myModal').modal('hide');">
+							</h:commandLink>
+							<h:commandLink value="No" immediate="true"
+								styleClass="btn btn-default"
+								oncomplete="$('#myModal').modal('hide');" />
+						</h:panelGroup>
+					</h:form>
+				</div>
+			</div>
+		</div>
+		<h:form id="myform">
+			<div class="form-group">
+				<div class="col-md-12 table-responsive">
+					<h:form>
+						<h:dataTable value="#{categoryBean.categoryLists}" var="c" styleClass="table table-striped table-hover">
+							<h:column>
+								<f:facet name="header">
+									<h:commandLink action="#{categoryBean.checkAll()}">
+										<h:selectBooleanCheckbox value="#{categoryBean.checkAll}" />
+										<f:ajax execute="myform" render=":myform" />
+									</h:commandLink>
+								</f:facet>
+								<h:selectBooleanCheckbox value="#{c.check}" />
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Reference Parent Name</f:facet>#{c.name}
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Default Name</f:facet>#{c.subChild}
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Myanmar Name</f:facet>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Japan Name</f:facet>
+							</h:column>
+							
+							<h:column>
+								<f:facet name="header">Edit</f:facet>
+								<h:link outcome="/admin/payment" styleClass="lnk_cat">
+									<i class="fa fa-edit"></i>
+								</h:link>
+							</h:column>
+							
+						</h:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</h:form>
+		<div class="modal fade" id="div_cat" p:role="dialog" style="display: none;">
+			<ui:include src="/admin/add-category.xhtml" />
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

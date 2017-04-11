@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:order="http://java.sun.com/jsf/composite/order"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/WEB-INF/dashboard-template.xhtml">
+	<ui:define name="title">Order History Shipment Detail</ui:define>
+	<ui:define name="pageHeader">Order History Shipment Detail</ui:define>
+	<ui:define name="Contents">		
+			<order:order-shipment-details />	
+	</ui:define>
+</ui:composition>
+</html>

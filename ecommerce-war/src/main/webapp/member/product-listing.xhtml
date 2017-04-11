@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://java.sun.com/jsf/passthrough"
+      xmlns:shop="http://java.sun.com/jsf/composite/shop"   
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/shop-template.xhtml">	
+		
+		<ui:define name="title">Product Listing</ui:define>
+		<ui:define name="Contents">		
+		<!-- Page Heading-->
+        <div class="row">
+        	<div class="col-md-12">
+				<h4 class="page-header">Product Listing</h4>
+			</div>
+        </div>       
+		
+		<div class="row">
+			 <div class="col-md-9">	
+			 	<!-- Page Features -->
+		        <div class="row text-center">
+		            <div class="col-md-4 col-sm-8">
+		           		<shop:item></shop:item>
+		            </div>			
+		            <div class="col-md-4 col-sm-8">
+		                <shop:item></shop:item>
+		            </div>
+		            <div class="col-md-4 col-sm-8">
+		                <shop:item></shop:item>                
+		            </div>		           
+		        </div>
+		        
+				 <!-- Page Features -->
+		        <div class="row text-center">
+		            <div class="col-md-4 col-sm-8">
+		           		<shop:item></shop:item>
+		            </div>			
+		            <div class="col-md-4 col-sm-8">
+		                <shop:item></shop:item>
+		            </div>
+		            <div class="col-md-4 col-sm-8">
+		                <shop:item></shop:item>                
+		            </div>		            
+		        </div>			 
+			 </div>
+			 
+			 <div class="col-md-3">
+				<ui:include src="/WEB-INF/shop-side-menu.xhtml" />		
+			 </div>
+		</div>
+		<script type="text/javascript">	
+			$( document ).ready(function() {			
+				$("#li_productlisting").addClass("active");
+		 	});	 
+		</script>      
+		</ui:define>	
+		
+	</ui:composition>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:post="http://java.sun.com/jsf/composite/post"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/WEB-INF/dashboard-template.xhtml">
+	<ui:define name="title">User List</ui:define>
+	<ui:define name="pageHeader">User List</ui:define>
+	<ui:define name="Contents">
+		<h:form>
+			<div class="row">
+				<div class="col-md-9"></div>
+				<div class="col-md-3">
+					<div class="input-group">
+						<h:inputText styleClass="form-control" />
+						<span class="input-group-btn"> <h:link
+								styleClass="btn btn-primary">
+								<i class="fa fa-search"></i>
+							</h:link>
+						</span>
+					</div>
+				</div>
+			</div>
+		</h:form>
+
+		<br />
+		<!-- User List -->
+		<h:form styleClass="form-horizontal">
+			<div class="row">
+				<div class="col-md-12 table-hover">
+					<h:dataTable value="#{userListBean.lists}" var="u"
+						styleClass="table table-striped table-hover">
+						<h:column>
+							<f:facet name="header">First Name</f:facet>#{u.fname}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Last Name</f:facet> #{u.lname}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Nickname</f:facet>#{u.nickName}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Email</f:facet>#{u.email}
+						</h:column>
+						<h:column>
+							<f:facet name="header">User Status</f:facet>Active
+						</h:column>
+						<h:column>
+							<f:facet name="header">Created Date</f:facet>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Action</f:facet>
+							<h:link styleClass="tooltip.in btn btn-default" title="View Detail" outcome="/admin/user">
+								<i class="fa fa-eye"></i>
+							</h:link>
+						</h:column>
+
+					</h:dataTable>
+
+				</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:post="http://java.sun.com/jsf/composite/post"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/WEB-INF/dashboard-template.xhtml">
+	<ui:define name="title">City</ui:define>
+	<ui:define name="pageHeader">City</ui:define>
+	<ui:define name="Contents">
+
+		<!-- City Add -->
+		<h:form styleClass="form-inline myForm" style="margin-bottom: 10px;">
+			<div class="form-group MarRight10">
+				<h:outputLabel value="Country" styleClass="control-label MarRight10 MarTop5" />
+				<h:selectOneMenu styleClass="form-control MarTop5"  >
+					<f:selectItems value="#{countryBean.countries}" var="c" itemLabel="#{c.name}" itemValue="#{c.name}"/>
+				</h:selectOneMenu>
+			</div>
+
+			<div class="form-group MarRight10">
+				<h:outputLabel value="State" styleClass="control-label MarRight10 MarTop5" />
+					<h:selectOneMenu styleClass="form-control MarTop5" >
+						<f:selectItems value="#{stateBean.states}" var="s" itemLabel="#{s.name}" itemValue="#{s.name}" />
+					</h:selectOneMenu>
+			</div>
+			<div class="form-group">
+				<h:commandLink action="#" styleClass="btn btn-primary form-control">
+					<i class="fa fa-search"></i>
+				</h:commandLink>
+			</div>
+		</h:form>		
+		<h:form id="myform">
+			<div class="row">
+				<div class="col-md-12 table-responsive">
+					<h:dataTable value="#{cityBean.cities}" var="c"
+						styleClass="table table-striped table-hover">
+						<h:column>
+							<f:facet name="header">Country Name</f:facet>#{c.state.country.name}
+						</h:column>
+						<h:column>
+							<f:facet name="header">State Name</f:facet>#{c.state.name}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Default Name</f:facet>#{c.name}
+						</h:column>						
+						<h:column>
+							<f:facet name="header">Remove</f:facet>
+							<h:commandLink action="#{cityBean.delete(c)}">
+								<i class="fa fa-remove"></i>
+							</h:commandLink>
+							
+						</h:column>
+					</h:dataTable>
+				</div>
+			</div>
+		</h:form>			
+	</ui:define>
+
+</ui:composition>
+</html>

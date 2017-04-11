@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<div xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<ui:insert name="script"></ui:insert>
+	<script type="text/javascript">	
+		$( document ).ready(function() {			
+			$( ".lnk_proInfo" ).click(function( event ) {				
+				  event.preventDefault();				 
+				  $('#div_proInfo').modal('toggle');					 
+			});
+			$( ".lnk_sub" ).click(function( event ) {
+				  event.preventDefault();
+				  $('#div_sub').modal('toggle');	
+			});
+			$( ".lnk_price" ).click(function( event ) {				
+				  event.preventDefault();				 
+				  $('#div_price').modal('toggle');					 
+			});
+			$( ".lnk_qty" ).click(function( event ) {				
+				  event.preventDefault();				 
+				  $('#div_qty').modal('toggle');					 
+			});
+			$( ".lnk_quantity" ).click(function( event ) {				
+				  event.preventDefault();				 
+				  $('#div_quantity').modal('toggle');					
+			});
+			$( ".lnk_charge" ).click(function( event ) {				
+				  event.preventDefault();				 
+				  $('#div_charge').modal('toggle');					 
+			});
+			$("#li_AdminItem").addClass("active");
+			
+			$(".multipleSelectExample").select2({
+				  
+			});
+
+			$('.datepicker').datepicker({
+				format: 'yyyy/mm/dd',
+				autoclose: true,
+				todayHighlight: true
+			});
+	 	});	
+		
+	 
+	</script>
+	
+
+	<!-- Admin Item Tab -->
+	<h:form>
+		<div class="container-fluid">
+			<div class="col-md-12">
+				<!-- Tab -->
+				<ul id="myTab" class="nav nav-tabs nav-justified">
+					<li class="active"><a href="#product-info" data-toggle="tab">Product
+							Information</a></li>
+					<li class=""><a href="#data" data-toggle="tab">Data</a></li>
+					<li class=""><a href="#quantity" data-toggle="tab">Quantity</a></li>
+					<li class=""><a href="#prices" data-toggle="tab">Price</a></li>
+					<li class=""><a href="#shipping" data-toggle="tab">Shipping</a></li>
+					<li class=""><a href="#images" data-toggle="tab">Images</a></li>
+				</ul>
+
+
+				<!-- Product Information-->
+
+				<div id="myTabContent" class="tab-content">
+					<div class="tab-pane fade active in" id="product-info">
+					<br/><br/>
+						<h:form>
+							<div class="row">
+								<div class="col-md-9">
+									<h:link outcome="/admin/product-info"
+										styleClass="lnk_proInfo btn btn-default">
+										<i class="fa fa-plus"></i>
+									</h:link>
+									&nbsp;
+									<h:form>
+										<h:commandLink styleClass="btn btn-default"
+											onclick="$('#myModal2').modal('show');" immediate="true">
+											<i class="fa fa-trash-o"></i>
+											<f:ajax execute="@this" render=":myForm2" />
+										</h:commandLink>
+									</h:form>
+									<div class="modal fade" id="myModal2" p:tabindex="-1"
+										p:role="dialog" p:aria-labelledby="myModal"
+										p:aria-hidden="true" p:data-keyboard="false"
+										p:data-backdrop="static">
+										<div class="modal-dialog modal-sm">
+											<div class="modal-content">
+												<h:form id="myForm2">
+													<div class="modal-header">
+														<h4>Confirm?</h4>
+													</div>
+													<div class="modal-body">
+														<h:outputLabel value="Are you sure to delete?" />
+													</div>
+													<h:panelGroup layout="block" styleClass="modal-footer">
+														<h:commandLink value="Yes" immediate="true"
+															styleClass="btn btn-primary"
+															oncomplete="$('#myModal2').modal('hide');">
+														</h:commandLink>
+														<h:commandLink value="No" immediate="true"
+															styleClass="btn btn-default"
+															oncomplete="$('#myModal2').modal('hide');" />
+													</h:panelGroup>
+												</h:form>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="input-group">
+										<h:inputText styleClass="form-control" />
+										<span class="input-group-btn"> <h:link
+												styleClass="btn btn-primary">
+												<i class="fa fa-search"></i>
+											</h:link>
+										</span>
+									</div>
+								</div>
+							</div>
+						</h:form>
+
+						<!-- User List -->
+						<h:form>
+							<div class="row">
+								<div class="col-md-12 table-responsive">
+									<h:dataTable value="#{productBean.products}" var="p"
+										styleClass="table table-hover">
+										<h:column>
+											<f:facet name="header">
+												<h:commandLink action="#{productBean.checkAll()}">
+													<h:selectBooleanCheckbox value="#{productBean.checkAll}" />
+													<f:ajax execute="@this" render="@form" />
+												</h:commandLink>
+											</f:facet>
+											<h:selectBooleanCheckbox value="#{p.check}" />
+										</h:column>
+										<h:column>
+											<f:facet name="header">Language</f:facet>#{p.language}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Product Name</f:facet> #{p.name}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Description</f:facet>#{p.description}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Default Language</f:facet>
+											<h:selectBooleanCheckbox value="#{p.defaultCheck}">
+												<f:ajax execute="@this"
+													listener="#{productBean.checkBoolean(p.defaultCheck)}" />
+											</h:selectBooleanCheckbox>
+										</h:column>
+										<h:column>
+											<f:facet name="header">Edit</f:facet>
+											<h:link outcome="/admin/product-info"
+												styleClass="lnk_proInfo">
+												<i class="fa fa-edit"></i>
+											</h:link>
+										</h:column>
+									</h:dataTable>
+								</div>
+							</div>
+						</h:form>
+						<div class="modal fade" id="div_proInfo" p:role="dialog"
+							style="display: none;">
+							<ui:include src="/admin/product-info.xhtml" />
+						</div>
+					</div>
+
+					<!-- Data-->
+					<div class="tab-pane fade" id="data">
+						<br /><br/>
+
+						<h:form styleClass="form-horizontal">
+							<div class="box-body">
+								<div class="box-body">
+									<div class="form-group">
+										<h:outputLabel value="Product Image"
+											styleClass="col-md-2 control-label" />
+										<div class="col-md-2">
+											<h:inputFile value="Browse" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="Product Name"
+											styleClass="col-md-2 control-label" />
+										<div class="col-md-4">
+											<h:inputText styleClass="form-control" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="Description"
+											styleClass="col-md-2 control-label" />
+										<div class="col-md-4">
+											<h:inputTextarea styleClass="form-control" rows="4" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="Category"
+											styleClass="col-md-2 control-label" />
+										<div class="col-md-4">
+											<h:selectOneMenu
+												styleClass="multipleSelectExample form-control"
+												style="width: 100%">
+												<f:selectItem itemLabel="Men" />
+												<f:selectItem itemLabel="Women" />
+												<f:selectItem itemLabel="Child" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-md-2"></div>
+										<div class="col-md-4">
+											<h:selectOneMenu
+												styleClass="multipleSelectExample form-control"
+												style="width: 100%">
+												<f:selectItem itemLabel="CLothes" />
+												<f:selectItem itemLabel="Accessories" />
+												<f:selectItem itemLabel="Clothes" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-md-2"></div>
+										<div class="col-md-4">
+											<h:selectOneMenu
+												styleClass="multipleSelectExample form-control"
+												style="width: 100%">
+												<f:selectItem itemLabel="Shirt" />
+												<f:selectItem itemLabel="Necklaces" />
+												<f:selectItem itemLabel="Pants" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<h:outputLabel value="Size"
+											styleClass="col-md-2 control-label" />
+										<div class="col-md-4">
+											<h:selectManyListbox
+												styleClass="multipleSelectExample form-control"
+												multiple="multiple" style="width: 100%">
+												<f:selectItem itemLabel="option1" itemValue="option1" />
+												<f:selectItem itemLabel="option2" itemValue="option2" />
+												<f:selectItem itemLabel="option3" itemValue="option3" />
+											</h:selectManyListbox>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="Brand"
+											styleClass="col-md-2 control-label" />
+										<div class="col-md-4">
+											<h:selectOneMenu
+												styleClass="multipleSelectExample form-control"
+												style="width: 100%">
+												<f:selectItem itemLabel="Nike" />
+												<f:selectItem itemLabel="Indigo" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="Item State"
+											styleClass="col-md-2 control-label" />
+										<div class="col-md-4">
+											<h:selectOneMenu
+												styleClass="multipleSelectExample form-control"
+												style="width: 100%">
+												<f:selectItem itemLabel="Used" />
+												<f:selectItem itemLabel="New" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="Price"
+											styleClass="col-md-2 control-label" />
+										<div class="col-md-4">
+											<h:inputText styleClass="form-control" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="Location"
+											styleClass="col-md-2 control-label" />
+										<div class="col-md-4">
+											<h:selectOneMenu
+												styleClass="form-control multipleSelectExample"
+												style="width: 100%">
+												<f:selectItem itemLabel="Thanlyin" />
+												<f:selectItem itemLabel="Yankin" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+
+							<div class="box-body">
+								<div class="col-md-2"></div>
+								<div class="col-md-4">
+									<h:commandButton value="Save" styleClass="btn btn-primary" />
+									&nbsp;
+									<button type="reset" class="btn btn-default">Cancel</button>
+								</div>
+							</div>
+						</h:form>
+					</div>
+
+
+					<!-- Quantity -->
+
+					<div class="tab-pane fade" id="quantity">
+						<br/><br/>
+						<div class="row">
+							<div class="col-md-9">
+								<h:form>
+									<h:link outcome="/admin/product-quantity"
+										styleClass="lnk_quantity btn btn-default">
+										<i class="fa fa-plus"></i>
+									</h:link>&nbsp;
+										<h:commandLink styleClass="btn btn-default"
+										onclick="$('#myModalQty').modal('show');" immediate="true">
+										<i class="fa fa-trash-o"></i>
+										<f:ajax execute="@this" render=":myFormQty" />
+									</h:commandLink>
+								</h:form>
+								<div class="modal fade" id="myModalQty" p:tabindex="-1"
+									p:role="dialog" p:aria-labelledby="myModal"
+									p:aria-hidden="true" p:data-keyboard="false"
+									p:data-backdrop="static">
+									<div class="modal-dialog modal-sm">
+										<div class="modal-content">
+											<h:form id="myFormQty">
+												<div class="modal-header">
+													<h4>Confirm?</h4>
+												</div>
+												<div class="modal-body">
+													<h:outputLabel value="Are you sure to delete?" />
+												</div>
+												<h:panelGroup layout="block" styleClass="modal-footer">
+													<h:commandLink value="Yes" immediate="true"
+														styleClass="btn btn-primary"
+														oncomplete="$('#myModalQty').modal('hide');">
+													</h:commandLink>
+													<h:commandLink value="No" styleClass="btn btn-default"
+														oncomplete="$('#myModalQty').modal('hide');" />
+												</h:panelGroup>
+											</h:form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<br />
+
+						<div class="row">
+							<div class="col-md-12">
+								<h:form>
+									<h:dataTable value="#{quantityBean.quantityLists}" var="q"
+										styleClass="table table-bordered table-hover">
+										<h:column>
+											<f:facet name="header">
+												<h:commandLink action="#{quantityBean.checkAll()}">
+													<h:selectBooleanCheckbox value="#{quantityBean.checkAll}" />
+													<f:ajax execute="@this" render="@form" />
+												</h:commandLink>
+											</f:facet>
+											<h:selectBooleanCheckbox value="#{q.check}" />
+										</h:column>
+										<h:column>
+											<f:facet name="header">Color</f:facet>#{q.color}
+											</h:column>
+										<h:column>
+											<f:facet name="header">Size</f:facet>#{q.size}
+											</h:column>
+										<h:column>
+											<f:facet name="header">Quantity</f:facet>#{q.qty}
+											</h:column>
+										<h:column>
+											<f:facet name="header">Edit</f:facet>
+											<h:form>
+												<h:link outcome="/admin/product-quantity"
+													styleClass="lnk_quantity">
+													<i class="fa fa-edit"></i>
+												</h:link>
+											</h:form>
+										</h:column>
+									</h:dataTable>
+								</h:form>
+							</div>
+						</div>
+						<div class="modal fade" id="div_quantity" p:role="dialog"
+							style="display: none;">
+							<ui:include src="/admin/product-quantity.xhtml" />
+						</div>
+					</div>
+
+					<!-- Price -->
+					<div class="tab-pane fade" id="prices">
+						<br/><br/>
+
+						<h:form styleClass="form-horizontal">
+							<div class="box-body">
+								<div class="box-body">
+									<div class="form-group">
+										<h:outputLabel value="Promotion Status"
+											styleClass="col-md-2 control-label" />
+										<div class="col-md-2">
+											<h:selectOneMenu styleClass="form-control">
+												<f:selectItem itemLabel="All" />
+												<f:selectItem itemLabel="Active" />
+												<f:selectItem itemLabel="Expired" />
+												<f:selectItem itemLabel="Deactive" />
+											</h:selectOneMenu>
+										</div>
+										<h:outputLabel value="Valid From"
+											styleClass="col-md-2 control-label" />
+										<div class="col-md-2">
+											<div class="form-group">
+												<div class="input-group">
+													<h:inputText id="date" styleClass="form-control datepicker"
+														p:data-provide="datepicker" p:placeholder="MM/DD/YYYY"
+														converter="#{dateConverter}" />
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+										<h:outputLabel value="Valid To"
+											styleClass="col-md-2 control-label" />
+										<div class="col-md-2">
+											<div class="form-group">
+												<div class="input-group">
+													<h:inputText id="date1"
+														styleClass="form-control datepicker"
+														p:data-provide="datepicker" p:placeholder="MM/DD/YYYY"
+														converter="#{dateConverter}" />
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group"></div>
+								</div>
+							</div>
+						</h:form>
+
+
+						<div class="row">
+							<div class="col-md-9">
+								<h:form>
+									<h:link outcome="/admin/price"
+										styleClass="lnk_price btn btn-default">
+										<i class="fa fa-plus"></i>
+									</h:link>&nbsp;
+										<h:commandLink styleClass="btn btn-default"
+										onclick="$('#myModal3').modal('show');" immediate="true">
+										<i class="fa fa-trash-o"></i>
+										<f:ajax execute="@this" render=":myForm3" />
+									</h:commandLink>
+								</h:form>
+								<div class="modal fade" id="myModal3" p:tabindex="-1"
+									p:role="dialog" p:aria-labelledby="myModal"
+									p:aria-hidden="true" p:data-keyboard="false"
+									p:data-backdrop="static">
+									<div class="modal-dialog modal-sm">
+										<div class="modal-content">
+											<h:form id="myForm3">
+												<div class="modal-header">
+													<h4>Confirm?</h4>
+												</div>
+												<div class="modal-body">
+													<h:outputLabel value="Are you sure to delete?" />
+												</div>
+												<h:panelGroup layout="block" styleClass="modal-footer">
+													<h:commandLink value="Yes" immediate="true"
+														styleClass="btn btn-primary"
+														oncomplete="$('#myModal').modal('hide');">
+													</h:commandLink>
+													<h:commandLink value="No" styleClass="btn btn-default"
+														oncomplete="$('#myModal').modal('hide');" />
+												</h:panelGroup>
+											</h:form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="input-group">
+									<h:inputText styleClass="form-control" />
+									<span class="input-group-btn"> <h:link
+											styleClass="btn btn-primary">
+											<i class="fa fa-search"></i>
+										</h:link>
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<br />
+
+						<div class="row">
+							<div class="col-md-12">
+								<h:form>
+									<h:dataTable value="#{priceBean.priceLists}" var="p"
+										styleClass="table table-bordered table-hover "
+										rowClasses="active,warning,success">
+										<h:column>
+											<f:facet name="header">
+												<h:commandLink action="#{priceBean.checkAll()}">
+													<h:selectBooleanCheckbox value="#{priceBean.checkAll}" />
+													<f:ajax execute="@this" render="@form" />
+												</h:commandLink>
+											</f:facet>
+											<h:selectBooleanCheckbox value="#{p.check}" />
+										</h:column>
+										<h:column>
+											<f:facet name="header">Promotion</f:facet>#{p.promotion}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Price Type</f:facet>#{p.priceType}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Quality Break</f:facet>#{p.minQty}~#{p.maxQty}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Price</f:facet>#{p.price}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Valid From</f:facet>#{p.validFrom}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Valid To</f:facet>#{p.validTo}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Promotion Status</f:facet>#{p.proStatus}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Status</f:facet>#{p.status}
+										</h:column>
+										<h:column>
+											<f:facet name="header">Edit</f:facet>
+											<h:form>
+												<h:link outcome="/admin/price"
+													rendered="#{p.status=='Editable'}" styleClass="lnk_price">
+													<i class="fa fa-edit"></i>
+												</h:link>
+											</h:form>
+										</h:column>
+									</h:dataTable>
+								</h:form>
+							</div>
+						</div>
+						<div class="modal fade" id="div_price" p:role="dialog"
+							style="display: none;">
+							<ui:include src="/admin/price.xhtml" />
+						</div>
+						<div class="modal fade" id="div_qty" p:role="dialog"
+							style="display: none;">
+							<ui:include src="/admin/quantity.xhtml" />
+						</div>
+					</div>
+
+
+
+					<!-- Shipping -->
+					<div class="tab-pane fade" id="shipping">
+						<br/><br/>
+						<h:form id="shipping">
+							<div class="row">
+								<div class="col-md-2">
+									<h:outputLabel value="Shipping Type"
+										styleClass="control-label " />
+								</div>
+								<div class="col-md-4">
+									<h:selectOneMenu value="#{shippingBean.shippingType}"
+										styleClass="form-control">
+										<f:selectItem itemValue="0" itemLabel="No Shipping" />
+										<f:selectItem itemValue="charge"
+											itemLabel="Charge Shipping Fees" />
+										<f:selectItem itemValue="free" itemLabel="Free Shipping" />
+										<f:ajax render="@form" execute="@this" />
+									</h:selectOneMenu>
+								</div>
+							</div>
+							<br />
+
+							<h:panelGroup rendered="#{shippingBean.shippingType!='0'}">
+								<div class="row">
+									<div class="col-md-2">
+										<h:outputLabel value="Shipping Method"
+											styleClass="control-label " />
+									</div>
+									<div class="col-md-4">
+										<h:commandLink action="#{shippingBean.checkSelect()}">
+											<h:selectBooleanCheckbox
+												value="#{shippingBean.shippingMethod}" />
+											<f:ajax render="@form" execute="@this" />
+										</h:commandLink>&nbsp;Self-Delivery
+									</div>
+								</div>
+							</h:panelGroup>
+							<br />
+							<br />
+							<br />
+							<div id="ship">
+								<h:panelGroup
+									rendered="#{shippingBean.shippingType=='charge' and shippingBean.shippingMethod=='false'}">
+									<div class="row">
+										<div class="col-md-2">
+											<h:outputLabel value="Shipping Provider"
+												styleClass="control-label " />
+										</div>
+										<div class="col-md-4">
+											<h:selectOneMenu styleClass="form-control">
+												<f:selectItem itemLabel="MyShop Shipping" itemValue="" />
+												<f:selectItem itemLabel="Other Shipping" itemValue="" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+								</h:panelGroup>
+								<h:panelGroup
+									rendered="#{shippingBean.shippingType=='free' and shippingBean.shippingMethod=='false'}">
+									<script>
+											$( document ).ready(function() {			
+												$( ".lnk_free" ).click(function( event ) {				
+													  event.preventDefault();				 
+													  $('#div_free').modal('toggle');					 
+												});
+											});
+										</script>
+									<br />
+									<div class="row">
+										<div class="col-md-2">
+											<h:outputLabel value="Shipping Provider"
+												styleClass="control-label " />
+										</div>
+										<div class="col-md-4">
+											<h:selectOneMenu styleClass="form-control">
+												<f:selectItem itemLabel="MyShop Shipping" itemValue="" />
+												<f:selectItem itemLabel="Other Shipping" itemValue="" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+									<br />
+									<div class="row">
+										<div class="col-md-9">
+
+											<h:link styleClass="lnk_free btn btn-default"
+												outcome="/admin/free-shipping">
+												<i class="fa fa-plus"></i>
+											</h:link>
+											&nbsp;
+											<h:form>
+												<h:commandLink styleClass="btn btn-default"
+													onclick="$('#myModalship').modal('show');" immediate="true">
+													<i class="fa fa-trash-o"></i>
+													<f:ajax execute="@this" render=":myFormship" />
+												</h:commandLink>
+											</h:form>
+											<div class="modal fade" id="myModalship" p:tabindex="-1"
+												p:role="dialog" p:aria-labelledby="myModal"
+												p:aria-hidden="true" p:data-keyboard="false"
+												p:data-backdrop="static">
+												<div class="modal-dialog modal-sm">
+													<div class="modal-content">
+														<h:form id="myFormship">
+															<div class="modal-header">
+																<h4>Confirm?</h4>
+															</div>
+															<div class="modal-body">
+																<h:outputLabel value="Are you sure to delete?" />
+															</div>
+															<h:panelGroup layout="block" styleClass="modal-footer">
+																<h:commandLink value="Yes" immediate="true"
+																	styleClass="btn btn-primary"
+																	oncomplete="$('#myModal').modal('hide');">
+																</h:commandLink>
+																<h:commandLink value="No" immediate="true"
+																	styleClass="btn btn-default"
+																	oncomplete="$('#myModal').modal('hide');" />
+															</h:panelGroup>
+														</h:form>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-md-3">
+											<div class="input-group">
+												<h:inputText styleClass="form-control" />
+												<span class="input-group-btn"> <h:link
+														styleClass="btn btn-primary">
+														<i class="fa fa-search"></i>
+													</h:link>
+												</span>
+											</div>
+										</div>
+									</div>
+									<br />
+									<div class="row">
+										<div class="col-md-12">
+											<h:dataTable value="#{shippingBean.shippingLists}" var="s"
+												styleClass="table table-bordered table-hover">
+												<h:column>
+													<f:facet name="header">
+														<h:commandLink action="#{shippingBean.checkAll()}">
+															<h:selectBooleanCheckbox value="#{shippingBean.checkAll}" />
+															<f:ajax execute="@this" render="@form" />
+														</h:commandLink>
+													</f:facet>
+													<h:selectBooleanCheckbox value="#{s.check}" />
+												</h:column>
+												<h:column>
+													<f:facet name="header">Shipping Day</f:facet>#{s.shipDay}
+														</h:column>
+												<h:column>
+													<f:facet name="header">Township</f:facet>#{s.township}
+														</h:column>
+												<h:column>
+													<f:facet name="header">Edit</f:facet>
+													<h:link>
+														<i class="fa fa-edit"></i>
+													</h:link>
+												</h:column>
+											</h:dataTable>
+										</div>
+									</div>
+								</h:panelGroup>
+
+								<h:panelGroup
+									rendered="#{(shippingBean.shippingType=='free' or shippingBean.shippingType=='charge') and shippingBean.shippingMethod=='true'}">
+									<script>
+											$( document ).ready(function() {			
+												$( ".lnk_charge" ).click(function( event ) {				
+													  event.preventDefault();				 
+													  $('#div_charge').modal('toggle');					 
+												});
+											});
+										</script>
+									<script>
+											$( document ).ready(function() {			
+												$( ".lnk_selfree" ).click(function( event ) {				
+													  event.preventDefault();				 
+													  $('#div_selfree').modal('toggle');					 
+												});
+											});
+										</script>
+									<div class="row">
+										<div class="col-md-9">
+
+											<h:link outcome="/admin/charge-shipping"
+												rendered="#{shippingBean.shippingType=='charge'}"
+												styleClass="lnk_charge btn btn-default">
+												<i class="fa fa-plus"></i>
+											</h:link>
+											<h:link outcome="/admin/selfree-shipping.xhtml"
+												rendered="#{shippingBean.shippingType=='free'}"
+												styleClass="lnk_selfree btn btn-default">
+												<i class="fa fa-plus"></i>
+											</h:link>
+
+											&nbsp;
+											<h:form>
+												<h:commandLink styleClass="btn btn-default"
+													onclick="$('#myModalcharge').modal('show');"
+													immediate="true">
+													<i class="fa fa-trash-o"></i>
+													<f:ajax execute="@this" render=":myFormcharge" />
+												</h:commandLink>
+											</h:form>
+											<div class="modal fade" id="myModalcharge" p:tabindex="-1"
+												p:role="dialog" p:aria-labelledby="myModal"
+												p:aria-hidden="true" p:data-keyboard="false"
+												p:data-backdrop="static">
+												<div class="modal-dialog modal-sm">
+													<div class="modal-content">
+														<h:form id="myFormcharge">
+															<div class="modal-header">
+																<h4>Confirm?</h4>
+															</div>
+															<div class="modal-body">
+																<h:outputLabel value="Are you sure to delete?" />
+															</div>
+															<h:panelGroup layout="block" styleClass="modal-footer">
+																<h:commandLink value="Yes" immediate="true"
+																	styleClass="btn btn-primary"
+																	oncomplete="$('#myModal2').modal('hide');">
+																</h:commandLink>
+																<h:commandLink value="No" immediate="true"
+																	styleClass="btn btn-default"
+																	oncomplete="$('#myModal2').modal('hide');" />
+															</h:panelGroup>
+														</h:form>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-3">
+											<div class="input-group">
+												<h:inputText styleClass="form-control" />
+												<span class="input-group-btn"> <h:link
+														styleClass="btn btn-primary">
+														<i class="fa fa-search"></i>
+													</h:link>
+												</span>
+											</div>
+										</div>
+									</div>
+									<br />
+									<div class="row">
+										<div class="col-md-12">
+											<h:dataTable value="#{shippingBean.shippingLists}" var="s"
+												styleClass="table table-bordered table-hover">
+												<h:column>
+													<f:facet name="header">
+														<h:commandLink action="#{shippingBean.checkAll()}">
+															<h:selectBooleanCheckbox value="#{shippingBean.checkAll}" />
+															<f:ajax execute="@this" render="@form" />
+														</h:commandLink>
+													</f:facet>
+													<h:selectBooleanCheckbox value="#{s.check}" />
+												</h:column>
+												<h:column>
+													<f:facet name="header">Valid From</f:facet>#{s.validFrom}
+														</h:column>
+												<h:column>
+													<f:facet name="header">Valid To</f:facet>#{s.validTo}
+														</h:column>
+												<h:column>
+													<f:facet name="header">Status</f:facet>#{s.status}
+														</h:column>
+												<h:column>
+													<f:facet name="header">Edit</f:facet>
+													<h:link rendered="#{s.status == 'Editable'}">
+														<i class="fa fa-edit"></i>
+													</h:link>
+												</h:column>
+											</h:dataTable>
+										</div>
+									</div>
+								</h:panelGroup>
+								<div class="modal fade" id="div_charge" p:role="dialog">
+									<ui:include src="/admin/charge-shipping.xhtml" />
+								</div>
+								<div class="modal fade" id="div_free" p:role="dialog">
+									<ui:include src="/admin/free-shipping.xhtml" />
+								</div>
+								<div class="modal fade" id="div_selfree" p:role="dialog">
+									<ui:include src="/admin/selfree-shipping.xhtml" />
+								</div>
+
+							</div>
+						</h:form>
+
+
+					</div>
+
+
+
+
+
+					<!-- Image -->
+					<div class="tab-pane fade" id="images">
+						<br/><br/>
+						<div class="row">
+							<div class="col-md-12">
+								<h:form>
+									<h:dataTable value="#{productBean.products}" var="p"
+										styleClass="table table-bordered table-hover">
+										<h:column>
+											<f:facet name="header"></f:facet>
+											<h:graphicImage value="/resources/img/shirt.jpg" height="100"
+												width="80" />&nbsp;&nbsp;
+													<h:outputLabel value="#{productBean.name}" />#{p.img}
+											</h:column>
+										<h:column>
+											<f:facet name="header"></f:facet>
+											<h:selectOneMenu styleClass="form-control">
+												<f:selectItem itemLabel="1" />
+												<f:selectItem itemLabel="2" />
+											</h:selectOneMenu>
+										</h:column>
+										<h:column>
+											<f:facet name="header"></f:facet>
+											<h:commandLink>
+												<i class="fa fa-remove"></i>
+											</h:commandLink>
+										</h:column>
+									</h:dataTable>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</h:form>
+</div>

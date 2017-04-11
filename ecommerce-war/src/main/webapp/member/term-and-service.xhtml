@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition template="/WEB-INF/shop-template.xhtml">
+
+	<ui:define name="title">Term of Service</ui:define>
+	<ui:define name="Contents">
+		<div class="col-lg-12">
+			<h4 class="page-header">Term of Service</h4>
+		</div>
+		
+
+		<div class="col-lg-9">
+			<h4>Article 1 Contents of this service and our role</h4>
+			<p>This service is an online flea market service. We provide
+				opportunities and opportunities for sale and purchase of goods
+				between users (defined in the next Article), we assume that all
+				parties are responsible for the parties 'users' own responsibility
+				regarding sales contracts, exhibition, purchase etc. guarantee etc.
+				between users It does not trade oneself, nor is it entrusted to buy
+				or sell. We are not involved in any transactions such as
+				cancellation, cancellation, cancellation, return, refund, guarantee
+				etc. of the sales contract. In addition, this service does not
+				provide mediation for persons who intend to buy and sell goods by
+				way of bidding (auction). The contents of this service are as
+				prescribed in these Terms of Use and the Guide.</p>
+		</div>
+		<div class="col-lg-3">
+			<ui:include src="/WEB-INF/shop-side-menu.xhtml" />
+		</div>
+		<script type="text/javascript">	
+			$( document ).ready(function() {			
+				$("#li_term").addClass("active");
+		 	});	 
+		</script>
+	</ui:define>
+</ui:composition>
+</html>

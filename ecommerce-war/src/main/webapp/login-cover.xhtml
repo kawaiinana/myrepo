@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://java.sun.com/jsf/passthrough"
+	xmlns:shop="http://java.sun.com/jsf/composite/shop"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/shop-template.xhtml">
+	<ui:define name="Contents">
+		<div class="col-md-4 col-sm-12"></div>
+		<div class="col-md-4 col-sm-12 MarTop20 MarBottom15">
+			<h4>Login</h4>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h:form>
+						<div class="form-group">
+							<h:messages id="login-error" showDetail="true"
+								showSummary="false" style="color:red;" />
+							<h:outputLabel value="Email" styleClass="control-label" />
+							<h:inputText id="loginId" styleClass="form-control"
+								p:placeholder="Email" required="true"
+								requiredMessage="Please Enter Login ID"
+								value="#{securityLoginBean.email}" />
+						</div>
+						<div class="form-group">
+							<h:outputLabel value="Password" styleClass="control-label" />
+							<h:inputSecret id="password" styleClass="form-control"
+								p:placeholder="Password" required="true"
+								requiredMessage="Please Enter Password"
+								value="#{securityLoginBean.password}" />
+						</div>
+						<div class="form-group">
+							<h:commandButton styleClass="btn btn-primary" value="Sign In"
+								action="#{securityLoginBean.login()}">
+							</h:commandButton>
+							<button class="btn btn-default" type="reset">Cancel</button>
+						</div>
+						<div class="form-group">
+							<h:link styleClass="MarRight10"
+								value="Don't You have Account? Please SignUp"
+								outcome="/signup-cover" />
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 col-sm-12"></div>
+
+	</ui:define>
+
+</ui:composition>
+</html>

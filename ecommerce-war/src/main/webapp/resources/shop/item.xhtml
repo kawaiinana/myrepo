@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<title>Not present in rendered output</title>
+</head>
+<body>
+<composite:interface>	
+</composite:interface>
+<composite:implementation>
+	<div class="thumbnail">
+        <h:graphicImage  library="img" name="feacture.png" /> 
+        <div class="caption">                        
+        <h3><h:link outcome="/member/item-detail" value="Product Name"/></h3>
+        <p>This is a short description. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <div class="row">       
+          <div class="col-md-6 col-sm-12 col-xs-12">
+           	<p><h:outputText styleClass="price" value="$24.99" /></p>
+          </div>    
+          <div class="col-md-6 col-sm-12 col-xs-12"> 
+          	<h:link  styleClass="btn btn-success pull-right" outcome="/cart/check-out" value="Buy"/>
+          </div>                       
+        </div>
+        </div>                    
+    </div>
+</composite:implementation>
+</body>
+</html>

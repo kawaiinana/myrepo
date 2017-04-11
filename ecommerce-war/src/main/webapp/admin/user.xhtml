@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/WEB-INF/dashboard-template.xhtml">
+	<ui:define name="title">User</ui:define>
+	<ui:define name="pageHeader">User Details</ui:define>
+	<ui:define name="Contents">
+		<h:form>
+			<div class="page-header">
+				<i class="fa fa-user fa-2x"></i>&nbsp;&nbsp;
+				<h:outputText value="About" styleClass="fa-2x" />
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<h:outputLabel value="First Name"
+							styleClass="control-label col-md-2" />
+						<div class="col-md-4">
+							<h:outputText value="Kyaw" />
+						</div>
+						<h:outputLabel value="Email" styleClass="control-label col-md-2" />
+						<div class="col-md-4">
+							<h:outputText value="kyaw12345@gmail.com"
+								styleClass="control-label " />
+						</div>
+					</div>
+					<div class="row">
+						<h:outputLabel value="Last Name"
+							styleClass="control-label col-md-2" />
+						<div class="col-md-4">
+							<h:outputText value="Kyaw" />
+						</div>
+						<h:outputLabel value="Phone" styleClass="control-label col-md-2" />
+						<div class="col-md-4">
+							<h:outputText value="095566423" />
+						</div>
+					</div>
+					<div class="row">
+						<h:outputLabel value="Name" styleClass="control-label col-md-2" />
+						<div class="col-md-4">
+							<h:outputText value="Kyaw Kyaw" />
+						</div>
+						<h:outputLabel value="User Status"
+							styleClass="control-label col-md-2" />
+						<div class="col-md-4">
+							<h:outputText value="active" />
+						</div>
+					</div>
+					<div class="row">
+						<h:outputLabel value="Description"
+							styleClass="control-label col-md-2" />
+						<div class="col-md-4">
+							<h:outputText value="Kyaw Kyaw is a owner of Apple Store" />
+						</div>
+						<h:outputLabel value="Address"
+							styleClass="control-label col-md-2" />
+						<div class="col-md-4">
+							<h:outputText
+								value="No-2,Pan Soe Dan Street," />
+						</div>
+						
+					</div>
+					<div class="row">
+						<h:outputLabel value="Gender" styleClass="control-label col-md-2" />
+						<div class="col-md-4">
+							<h:outputText value="Male" />
+						</div>
+						<h:outputLabel value=""
+							styleClass="control-label col-md-2" />
+						<div class="col-md-4">
+							<h:outputText
+								value="Kyauk Thadar Township,Yangon" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<h:link styleClass="btn btn-primary" value="Ban"/>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

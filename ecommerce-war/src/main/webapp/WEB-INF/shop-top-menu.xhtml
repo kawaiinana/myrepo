@@ -1,0 +1,137 @@
+
+<div 
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:h="http://java.sun.com/jsf/html">
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#shop-navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>               
+                <h:link styleClass="navbar-brand" outcome="/index">
+					<i class="fa fa-shopping-cart"></i> Shop
+				</h:link>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="shop-navbar-collapse">
+            	<h:form styleClass="navbar-form navbar-left" p:role="search">
+	            	
+					<div class="input-group">
+						<h:inputText styleClass="form-control" p:placeholder="Search items"/>
+						<span class="input-group-btn"> 
+						<h:link styleClass="btn btn-default">
+								<i class="fa fa-search"></i>
+						</h:link>
+						</span>
+					</div>					
+				</h:form>
+				
+            	<h:form>
+            		<ul class="nav navbar-nav navbar-left">
+            			<li class="dropdown">
+	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Category <b class="caret"></b></a>
+	                      	  <ul class="dropdown-menu">
+	                           <li class="dropdown dropdown-submenu">
+									<h:link >
+									Fashion
+									</h:link>
+									<ul class="dropdown-menu">
+                            			<li><h:link >Fashion1</h:link></li>
+                            		</ul>
+								</li>
+								
+								<li class="dropdown dropdown-submenu">								
+									<h:link outcome="/member/subscription-upgrade">								
+										Book &amp; Stationary
+									</h:link>
+									<ul class="dropdown-menu">
+                            			<li><h:link >Book1</h:link></li>
+                            			<li><h:link >Book2</h:link></li>
+                            			<li><h:link >Book3</h:link></li>
+                            		</ul>
+								</li>								
+								<li>
+									<h:link outcome="/member/my-profile">
+									Electronic								
+									</h:link></li>
+								<li>								
+									<h:link outcome="/member/subscription-upgrade">								
+									Mobile &amp; Accessories
+									</h:link>
+								</li>
+								<li>
+									<h:link outcome="/member/subscription-upgrade">								
+									Computer &amp; Accessories
+									</h:link>
+								</li>
+								<li>
+									<h:link outcome="/member/subscription-upgrade">								
+									 Health &amp; Beauty
+									</h:link>
+								</li>
+	                        </ul>
+	                    </li>
+            		</ul>
+            		<ul class="nav navbar-nav navbar-right">
+            			<li>
+	                        <h:link outcome="/admin/home" rendered="#{not empty request.remoteUser and request.isUserInRole('Admin')}">
+								<i class="fa fa-tachometer"></i> Dashboard
+							</h:link>
+	                    </li>
+	                    <li>
+	                        <h:link  outcome="/member/my-notification" rendered="#{not empty request.remoteUser}">
+								<i class="fa fa-bell"></i> Notification
+							</h:link>
+	                    </li>
+	                  	                                                        
+	                    <li class="dropdown">
+	                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> Setting <b class="caret"></b></a>
+	                        <ul class="dropdown-menu">
+	                        <li><h:link outcome="/login-cover" rendered="#{empty request.remoteUser}">
+										<i class="fa fa-user"></i> Sign In								
+								</h:link>
+							</li>
+							<li><h:link outcome="/signup-cover" rendered="#{empty request.remoteUser}">
+										<i class="fa fa-user"></i> Sign Up							
+								</h:link>
+							</li>
+	                          <!--  <li>
+									<h:outputLink styleClass="lnk_SignIn" rendered="#{empty request.remoteUser}">
+										<i class="fa fa-sign-in"></i> Sign In
+									</h:outputLink>
+								</li> -->
+								<!-- <li>
+									<h:outputLink styleClass="lnk_SignUp" rendered="#{empty request.remoteUser}">										
+										<i class="fa fa-user-plus"></i> Sign Up
+									</h:outputLink>
+								</li> -->								
+								<li><h:link outcome="/member/my-profile" rendered="#{not empty request.remoteUser}">
+										<i class="fa fa-user"></i> My Pofile								
+									</h:link></li>
+								<li>
+									<h:link outcome="/member/my-account-setting" rendered="#{not empty request.remoteUser}">
+										<i class=" fa fa-key"></i> Change Password
+									</h:link>
+								</li>
+								<li>
+									<h:commandLink action="#{securityLoginBean.logout()}" rendered="#{not empty request.remoteUser}">
+										<i class="fa fa-sign-out"></i> Sign Out
+									</h:commandLink>
+								</li>
+	                        </ul>
+	                    </li>
+	                </ul>
+            	</h:form>                
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+</div>

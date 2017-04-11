@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:post="http://java.sun.com/jsf/composite/post"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/dashboard-template.xhtml">
+	<ui:define name="title">ItemState</ui:define>
+	<ui:define name="pageHeader">Item State</ui:define>
+	<ui:define name="Contents">
+		<h:form id="myform">
+			<div class="row">
+				<div class="col-md-12 table-responsive">
+					<h:form>
+						<h:dataTable value="#{itemStateBean.itemStates}" var="i"
+							styleClass="table table-striped table-hover">							
+
+							<h:column>
+								<f:facet name="header">Default Item State</f:facet>#{i.state}
+							</h:column>							
+
+							<h:column>
+								<f:facet name="header">Remove</f:facet>
+								<h:commandLink action="#{itemStateBean.delete(i)}">
+									<i class="fa fa-remove"></i>
+								</h:commandLink>
+							</h:column>
+						</h:dataTable>
+					</h:form>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

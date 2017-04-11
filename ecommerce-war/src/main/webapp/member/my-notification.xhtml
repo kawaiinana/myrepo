@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://java.sun.com/jsf/passthrough"
+      xmlns:h="http://java.sun.com/jsf/html">
+	<ui:composition template="/WEB-INF/shop-template.xhtml">	
+		
+		<ui:define name="title">My Notification</ui:define>
+		<ui:define name="Contents">
+		<div class="row">	
+			<div class="col-md-12">
+			<h4 class="page-header">Notification</h4>
+			</div>
+		</div>
+		<div class="row">
+			 <div class="col-md-9">			 
+				<ul class="nav nav-tabs nav-justified">
+				<li class="active"><a href="#like" data-toggle="tab"><i class="fa fa-fw fa-thumbs-o-up MarRight10" ></i><span class="badge">Likes</span></a></li>
+				<li><a href="#comment" data-toggle="tab"><i class="fa fa-commenting-o MarRight10"></i><span class="badge">Comments</span></a></li>		
+				<li><a href="#inform" data-toggle="tab"><span class="fa fa-bullhorn MarRight10" aria-hidden="true"></span><span class="badge">Information</span></a></li>
+				</ul>	 
+				
+		      	<div class="tab-content"> 		
+		      	 	<div class="tab-pane active" id="like">
+			         	<div class="panel-body"> 						
+									<!-- Table -->	
+								<div class="table-responsive">	
+											
+									<div class="col-md-12">					
+										<h:dataTable value="#{likeBean.likes}" styleClass="table table-hover" var="o">
+											<h:column>
+												<f:facet name="header">Like</f:facet><i class="fa fa-user-circle-o MarRight10" aria-hidden="true"></i>#{o.des} 
+											</h:column>
+										</h:dataTable>
+									</div>
+								</div>
+						</div>					
+		         	</div>
+	         	<div class="tab-pane" id="comment">
+		         	<div class="panel-body"> 						
+								<!-- Table -->	
+							<div class="table-responsive">	
+										
+								<div class="col-md-12">					
+									<h:dataTable value="#{commentBean.likes}" styleClass="table table-hover" var="o">
+										<h:column>
+											<f:facet name="header">Comment</f:facet><i class="fa fa-user-circle-o MarRight10" aria-hidden="true"></i>#{o.des} 
+										</h:column>
+									</h:dataTable>
+								</div>
+							</div>
+					</div>	
+	         	</div>
+	         	<div class="tab-pane" id="inform">
+		         	<div class="panel-body"> 						
+								<!-- Table -->	
+							<div class="table-responsive">	
+										
+								<div class="col-md-12">					
+									<h:dataTable value="#{informBean.likes}" styleClass="table table-hover" var="o">
+										<h:column>
+											<f:facet name="header">Information</f:facet><i class="fa fa-user-circle-o MarRight10" aria-hidden="true"></i>#{o.des} 
+										</h:column>
+									</h:dataTable>
+								</div>
+							</div>
+					</div>	
+	         	</div>
+	         	</div>
+	         </div>
+         
+	        <div class="col-md-3">
+				<ui:include src="/WEB-INF/shop-side-menu.xhtml" />		
+			</div>
+      </div>
+         <script type="text/javascript">	
+			$( document ).ready(function() {			
+				$("#li_notification").addClass("active");
+		 	});	 
+		</script>
+		</ui:define>	
+	</ui:composition>
+</html>

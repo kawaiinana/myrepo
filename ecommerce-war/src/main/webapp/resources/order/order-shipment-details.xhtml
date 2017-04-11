@@ -1,0 +1,205 @@
+<div xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+	<composite:interface>
+		<composite:attribute name="item"
+			type="com.shop.bean.OrderhistoryPendingBean" required="true" />
+		<composite:attribute name="deleteAction"
+			method-signature="java.lang.String action(com.shop.bean.OrderhistoryPendingBean)" />
+		<composite:attribute name="updateListener"
+			method-signature="void action(com.shop.bean.OrderhistoryPendingBean)" />
+	</composite:interface>
+	<composite:implementation>
+
+		<div class="col-md-12 content-wrap">
+			<br />
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Order Information</div>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<tbody>
+									<tr>
+										<td><h:outputText value="Order Number - " /></td>
+										<td><h:outputText value="SSON-3127032154" /></td>
+										<td style="width: 75%"></td>
+									</tr>
+									<tr>
+										<td><h:outputText value="Order Status - " /></td>
+										<td><h:outputText value="Complete Deliver" /></td>
+										<td style="width: 75%"></td>
+									</tr>
+									<tr>
+										<td><h:outputText value="Order Date - " /></td>
+										<td><h:outputText value="2015-10-03 11:17:39" /></td>
+										<td style="width: 75%"></td>
+									</tr>
+									<tr>
+										<td><h:outputText value="Buyer - " /></td>
+										<td><h:link value="Htun Htun" styleClass="tooltip.in"
+												title="Go To #{o.buyer}'s Home" /></td>
+										<td style="width: 75%"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">Shipping Information</div>
+
+						<table class="table table-hover table-responsive">
+							<tbody>
+								<tr>
+									<td><h:outputText value="Recipient Name" /></td>
+									<td style="width: 73%"><h:outputText value="Daw Mya" /></td>
+								</tr>
+								<tr>
+									<td><h:outputText value="Recipient Phone" /></td>
+									<td style="width: 73%"><h:outputText value="01-5102658" />
+									</td>
+								</tr>
+								<tr>
+									<td><h:outputText value="Recipient Address" /></td>
+									<td style="width: 73%"><h:outputText
+											value="No.1, TiDar Road, middle block, between 18 street and 19th street Latha
+Town - Yangon
+State - Yangon Region
+Country - Myanmar [Burma]" /></td>
+								</tr>
+								<h:form>
+									<tr>
+										<td colspan="2"><h:link
+												outcome="/member/my-purchase-history	"
+												styleClass="btn btn-primary" value="Confirm" /> <!-- <h:commandLink   styleClass="btn btn-primary"  value="Confirm"  action="#{orderhistoryShippingBean.deleteAction(o)}" /> -->
+
+										</td>
+									</tr>
+								</h:form>
+							</tbody>
+						</table>
+
+					</div>
+
+				</div>
+				<div class="col-md-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">Payment Information</div>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<tbody>
+									<tr>
+										<td><h:outputText value="CB Bank" /></td>
+									</tr>
+									<tr>
+										<td><h:outputText value="Holder : KKKKKK" /></td>
+									</tr>
+									<tr>
+										<td><h:outputText value="Number : 001152465555555555" />
+										</td>
+									</tr>
+									<tr>
+										<td><a href="#modalCantidadReservasMensuales"
+											data-toggle="modal" class="btn btn-primary">View Slip</a></td>
+									</tr>
+									<tr style="height: 37px;">
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Order Item Detail</div>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Seller</th>
+										<th>Item</th>
+										<th>Color</th>
+										<th>Size</th>
+										<th>Price</th>
+										<th>Qty</th>
+										<th>Amount</th>
+										<th>Discount</th>
+										<th>Shipping Type</th>
+										<th>Shipping Fee</th>
+										<th>Sub total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">1</th>
+										<td><h:link value="Daw Aye" styleClass="tooltip.in"
+												title="Go To #{o.seller}'s Shop" /></td>
+										<td>Skirt</td>
+										<td>Yellow</td>
+										<td>Middle</td>
+										<td>3,000MMK</td>
+										<td>10</td>
+										<td>30,000MMK</td>
+										<td>100MMK</td>
+										<td>Shipping Charges</td>
+										<td>100MMK</td>
+										<td>30,000MMK</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Modal-->
+		<div class="modal fade" id="modalCantidadReservasMensuales"
+			tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<h:outputText value="&amp;times;" escape="false" />
+						</button>
+						<h4 class="modal-title">Pay Slip Photo</h4>
+					</div>
+					<div class="modal-body">
+						<h:form>
+							<div class="form-group">
+								<h:graphicImage class="img-responsive" library="img"
+									alt="Pay Slip" name="PaySlip.png" />
+							</div>
+							<div class="form-group">
+								<h:link styleClass="btn btn-primary" value="Confirm" />
+							</div>
+						</h:form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</composite:implementation>
+	<script type="text/javascript">
+function openModal(){
+	/* $('#modalCantidadReservasMensuales').modal('show'); */
+	$('#myModal').modal('show'); 	
+			  
+} 
+</script>
+</div>

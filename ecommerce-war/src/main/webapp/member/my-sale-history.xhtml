@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition template="/WEB-INF/shop-template.xhtml">
+
+	<ui:define name="title">My Sale History</ui:define>
+	<ui:define name="Contents">
+		<div class="row">
+			<div class="col-lg-10">
+				<h4 class="page-header">Sale History</h4>
+			</div>
+		</div>
+		<div class="row">	
+
+		<div class="col-md-9">
+			<h:form styleClass="form-inline">
+				<div class="form-group">
+					<h:outputLabel value="Status" styleClass="MarRight5"/><br/>
+					<h:selectOneMenu styleClass="form-control drpdown MarRight10"
+						value="#{order.selectedOrderStatusItem}" onchange="function()">
+						<f:selectItems value="#{order.selectedOrderStatusItems}" />
+					</h:selectOneMenu>
+				</div>
+				<div class="form-group">
+					<h:outputLabel value="From Date" for="fromdatep" styleClass="MarRight5"/><br/>
+					<div class="input-group MarRight10">
+						<h:inputText id="fromdatep" styleClass="form-control datepicker"
+							p:data-provide="datepicker" p:placeholder="MM/DD/YYYY"
+							converter="#{dateConverter}" />
+						<div class="input-group-addon">
+							<i class="fa fa-calendar"></i>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<h:outputLabel value="To Date" for="todatep" styleClass="MarRight5"/><br/>
+					<div class="input-group MarRight10">
+						<h:inputText id="todatep" styleClass="form-control datepicker"
+							p:data-provide="datepicker" p:placeholder="MM/DD/YYYY"
+							converter="#{dateConverter}" />
+						<div class="input-group-addon">
+							<i class="fa fa-calendar"></i>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+				<br/>	
+					<h:commandLink action="/admin/orderhistory"
+						styleClass="btn btn-primary form-control MarTop5">
+						<i class="fa fa-search"></i>
+					</h:commandLink>
+				</div>
+			</h:form>
+			<div id="Pending">
+				<div class="panel-body">
+					<!-- Table -->
+					<div class="table-responsive">
+						<div class="col-lg-12">
+							<h:dataTable
+								value="#{orderhistoryPendingSellerBean.orderhistorypendingsellers}"
+								styleClass="table table-hover" var="o">
+								<h:column>
+									<f:facet name="header">Order No</f:facet>#{o.orderNo}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Ordered</f:facet>#{o.date} 							
+								</h:column>
+								<h:column>
+									<f:facet name="header">Item</f:facet>Skirt						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Price</f:facet>#{o.purchaseAmount} 							
+								</h:column>
+								<h:column>
+									<f:facet name="header">Quantity</f:facet>#{o.quantity} 							
+								</h:column>
+								<h:column>
+									<f:facet name="header">Total Amount</f:facet>#{o.totalPurchaseAmount}		
+								</h:column>
+								<h:column>
+									<f:facet name="header">Buyer</f:facet>
+									<h:link value="#{o.buyer}" styleClass="tooltip.in"
+										title="Go To #{o.buyer}'s Home" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Status</f:facet>
+									Pending
+								</h:column>
+								<h:column>
+									<f:facet name="header">Action</f:facet>
+									<h:link styleClass="tooltip.in btn btn-default"
+										title="View Detail"
+										outcome="/member/my-sale-historypend-detail">
+										<i class="fa fa-eye"></i>
+									</h:link>
+								</h:column>
+							</h:dataTable>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div id="Payment" style="display: none;">
+				<div class="panel-body">
+					<!-- Table -->
+					<div class="table-responsive">
+						<div class="col-lg-12">
+							<h:dataTable
+								value="#{orderhistoryPaymentBean.orderhistoryPaymentPendings}"
+								styleClass="table table-hover" var="o">
+								<h:column>
+									<f:facet name="header">Order No</f:facet>#{o.orderNo}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Ordered</f:facet>#{o.date} 							
+								</h:column>
+								<h:column>
+									<f:facet name="header">Item</f:facet>Skirt						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Price</f:facet>3,000MMK						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Quantity</f:facet>1							
+								</h:column>
+								<h:column>
+									<f:facet name="header">Total Amount</f:facet>3,000MMK			
+								</h:column>
+								<h:column>
+									<f:facet name="header">Buyer</f:facet>
+									<h:link value="#{o.buyer}" styleClass="tooltip.in"
+										title="Go To #{o.buyer}'s Home" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Status</f:facet>	#{o.status}											
+								</h:column>
+								<h:column>
+									<f:facet name="header">Action</f:facet>
+									<h:link styleClass="tooltip.in btn btn-default"
+										title="View Detail" outcome="/member/my-sale-history-detail">
+										<i class="fa fa-eye"></i>
+									</h:link>
+								</h:column>
+							</h:dataTable>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="Processing" style="display: none;">
+				<div class="panel-body">
+					<!-- Table -->
+					<div class="table-responsive">
+						<div class="col-lg-12">
+							<h:dataTable
+								value="#{orderhistoryProcessingSellerBean.orderhistoryprocessingsellers}"
+								styleClass="table table-hover" var="o">
+								<h:column>
+									<f:facet name="header">Order No</f:facet>#{o.orderNo}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Ordered</f:facet>#{o.date} 							
+								</h:column>
+								<h:column>
+									<f:facet name="header">Item</f:facet>Skirt						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Price</f:facet>3,000MMK						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Quantity</f:facet>1							
+								</h:column>
+								<h:column>
+									<f:facet name="header">Total Amount</f:facet>3,000MMK			
+								</h:column>
+								<h:column>
+									<f:facet name="header">Buyer</f:facet>
+									<h:link value="#{o.buyer}" styleClass="tooltip.in"
+										title="Go To #{o.buyer}'s Home" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Status</f:facet>Processing															
+								</h:column>
+								<h:column>
+									<f:facet name="header">Action</f:facet>
+									<h:link styleClass="tooltip.in btn btn-default"
+										title="View Detail"
+										outcome="/member/my-sale-historyprocess-detail">
+										<i class="fa fa-eye"></i>
+									</h:link>
+								</h:column>
+							</h:dataTable>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="Shipment" style="display: none;">
+
+				<div class="panel-body">
+					<!-- Table -->
+					<div class="table-responsive">
+						<div class="col-lg-12">
+							<h:dataTable
+								value="#{orderhistoryShippingBean.orderhistoryShippings}"
+								styleClass="table table-hover" var="o">
+								<h:column>
+									<f:facet name="header">Order No</f:facet>#{o.orderNo}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Ordered</f:facet>#{o.shippingDate} 							
+								</h:column>
+								<h:column>
+									<f:facet name="header">Item</f:facet>Skirt						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Price</f:facet>3,000MMK						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Quantity</f:facet>1							
+								</h:column>
+								<h:column>
+									<f:facet name="header">Total Amount</f:facet>3,000MMK			
+								</h:column>
+								<h:column>
+									<f:facet name="header">Buyer</f:facet>
+									<h:link value="#{o.buyer}" styleClass="tooltip.in"
+										title="Go To #{o.buyer}'s Home" />
+								</h:column>
+								<h:column>
+
+									<f:facet name="header">Status</f:facet>
+									Pending
+								</h:column>
+								<h:column>
+									<f:facet name="header">Action</f:facet>
+									<h:link styleClass="tooltip.in btn btn-default"
+										title="View Detail"
+										outcome="/member/my-sale-historyship-detail">
+										<i class="fa fa-eye"></i>
+									</h:link>
+								</h:column>
+							</h:dataTable>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="Completed" style="display: none;">
+				<div class="panel-body">
+					<!-- Table -->
+					<div class="table-responsive">
+						<div class="col-lg-12">
+							<h:dataTable
+								value="#{orderhistoryCompleteBean.orderhistoryCompletes}"
+								styleClass="table table-hover" var="o">
+								<h:column>
+									<f:facet name="header">Order No</f:facet>#{o.orderNo}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Ordered</f:facet>#{o.date}						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Invoiced</f:facet>#{o.invoiceDate}		
+								</h:column>
+								<h:column>
+									<f:facet name="header">Item</f:facet>Skirt						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Price</f:facet>3,000MMK						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Quantity</f:facet>1							
+								</h:column>
+								<h:column>
+									<f:facet name="header">Total Amount</f:facet>3,000MMK			
+								</h:column>
+								<h:column>
+									<f:facet name="header">Buyer</f:facet>
+									<h:link value="#{o.buyer}" styleClass="tooltip.in"
+										title="Go To #{o.buyer}'s Home" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Status</f:facet>#{o.status}										
+								</h:column>
+								<h:column>
+									<f:facet name="header">Action</f:facet>
+									<h:link styleClass="tooltip.in btn btn-default"
+										title="View Detail" outcome="/member/my-sale-history-detail">
+										<i class="fa fa-eye"></i>
+									</h:link>
+								</h:column>
+							</h:dataTable>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="Reject" style="display: none;">
+				<div class="panel-body">
+					<!-- Table -->
+					<div class="table-responsive">
+						<div class="col-lg-12">
+							<h:dataTable
+								value="#{orderhistoryRejectBean.orderhistoryRejects}"
+								styleClass="table table-hover" var="o">
+								<h:column>
+									<f:facet name="header">Order No</f:facet>#{o.orderNo}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Ordered</f:facet>#{o.date}						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Item</f:facet>Skirt						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Price</f:facet>3,000MMK						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Quantity</f:facet>1							
+								</h:column>
+								<h:column>
+									<f:facet name="header">Total Amount</f:facet>3,000MMK			
+								</h:column>
+								<h:column>
+									<f:facet name="header">Buyer</f:facet>
+									<h:link value="#{o.buyer}" styleClass="tooltip.in"
+										title="Go To #{o.buyer}'s Home" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Status</f:facet>#{o.status}										
+								</h:column>
+								<h:column>
+									<f:facet name="header">Action</f:facet>
+									<h:link styleClass="tooltip.in btn btn-default"
+										title="View Detail" outcome="/member/my-sale-reject-detail">
+										<i class="fa fa-eye"></i>
+									</h:link>
+								</h:column>
+							</h:dataTable>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="Expired" style="display: none;">
+				<div class="panel-body">
+					<!-- Table -->
+					<div class="table-responsive">
+						<div class="col-lg-12">
+							<h:dataTable
+								value="#{orderhistoryExpiredBean.orderhistoryExpireds}"
+								styleClass="table table-hover" var="o">
+								<h:column>
+									<f:facet name="header">Order No</f:facet>#{o.orderNo}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Ordered</f:facet>#{o.date}						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Item</f:facet>Skirt						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Price</f:facet>3,000MMK						
+								</h:column>
+								<h:column>
+									<f:facet name="header">Quantity</f:facet>1							
+								</h:column>
+								<h:column>
+									<f:facet name="header">Total Amount</f:facet>3,000MMK			
+								</h:column>
+								<h:column>
+									<f:facet name="header">Buyer</f:facet>
+									<h:link value="#{o.buyer}" styleClass="tooltip.in"
+										title="Go To #{o.buyer}'s Home" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Status</f:facet>#{o.status}										
+								</h:column>
+								<h:column>
+									<f:facet name="header">Action</f:facet>
+									<h:link styleClass="tooltip.in btn btn-default"
+										title="View Detail" outcome="/member/my-sale-expired-detail">
+										<i class="fa fa-eye"></i>
+									</h:link>
+								</h:column>
+
+							</h:dataTable>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<ui:include src="/WEB-INF/shop-side-menu.xhtml" />
+		</div>
+		</div>
+		<script type="text/javascript">	
+			$( document ).ready(function() {			
+				$("#li_sale").addClass("active");
+		 	});	
+			$(document).ready(function() {
+				$('.datepicker').datepicker({
+					format: 'yyyy/mm/dd',
+					autoclose: true,
+					todayHighlight: true
+				});
+		 	});		
+			$(function(){
+				$('#uploadBtn').click(function(){
+					$('.imageInput').click();
+					});
+			});
+			$(function () {
+                //Attach click event to your Dropdownlist
+                $(".drpdown").change(function () {
+                    //Get the selected valu of dropdownlist
+                    selection = $(this).val();
+                    //If its one then show the dialog window. You can change this condition as per your need
+                    if (selection == 'Pending') {
+                    	$("#Pending").show();
+                    	$("#Payment").hide();
+                        $("#Processing").hide();
+                        $("#Shipment").hide();
+                        $("#Completed").hide();
+                        $("#Reject").hide();
+                        $("#Expired").hide();
+                    }
+                    else if(selection=='Payment')
+                    {
+                    	$("#Payment").show();
+                    	$("#Pending").hide();
+                    	$("#Processing").hide();
+                        $("#Shipment").hide();
+                        $("#Completed").hide();
+                        $("#Reject").hide();
+                        $("#Expired").hide();
+
+                    }
+                    else if(selection=='Processing')
+                    {
+
+                    	$("#Processing").show();
+                    	$("#Pending").hide();
+                    	$("#Payment").hide();
+                        $("#Shipment").hide();
+                        $("#Completed").hide();
+                        $("#Reject").hide();
+                        $("#Expired").hide();
+                     }
+                    else if(selection=='Shipment')
+                    {
+                    	$("#Shipment").show();
+                    	$("#Pending").hide();
+                    	$("#Payment").hide();
+                        $("#Processing").hide();
+                        $("#Completed").hide();
+                        $("#Reject").hide();
+                        $("#Expired").hide();
+
+                     }
+                    else if(selection=='Completed')
+                    {
+                    	$("#Completed").show();
+                    	$("#Pending").hide();
+                    	$("#Payment").hide();
+                        $("#Processing").hide();
+                        $("#Shipment").hide();
+                        $("#Reject").hide();
+                        $("#Expired").hide();
+
+                     }
+                    else if(selection=='Reject')
+                    {
+                    	$("#Reject").show();
+                    	$("#Completed").hide();
+                    	$("#Pending").hide();
+                    	$("#Payment").hide();
+                        $("#Processing").hide();
+                        $("#Shipment").hide();                      
+                        $("#Expired").hide();
+
+                     }
+                    else if(selection=='Expired')
+                    {
+                    	$("#Expired").show();                    	
+                    	$("#Pending").hide();
+                    	$("#Payment").hide();
+                        $("#Processing").hide();
+                        $("#Shipment").hide();
+                        $("#Reject").hide();
+                        $("#Completed").hide();
+                     }
+                        
+                });
+            });			
+			
+			
+		</script>
+	</ui:define>
+</ui:composition>
+</html>

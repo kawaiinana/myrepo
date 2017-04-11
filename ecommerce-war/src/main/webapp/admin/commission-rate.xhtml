@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:post="http://java.sun.com/jsf/composite/post"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<ui:composition template="/WEB-INF/dashboard-template.xhtml">
+	<ui:define name="title">Commission Rate</ui:define>
+	<ui:define name="pageHeader">Commission Rate</ui:define>
+	<ui:define name="scriptss">
+		
+	</ui:define>
+	<ui:define name="Contents">
+		<h:form styleClass="form-inline myForm">
+			<div class="col-md-12">
+				<div class="form-group">
+					<h:commandLink styleClass="btn btn-default"
+						onclick="$('#myModal').modal('show');" immediate="true">
+						<i class="fa fa-plus"></i>
+						<f:ajax execute="@this" render=":myForm" />
+					</h:commandLink>
+				</div>
+
+				<div class="form-group MarRight10">
+					<h:outputLabel value="Rate Type" for="rateType" styleClass="control-label" />
+						<div class="input-group MarTop15">
+							<h:selectOneMenu value="#{commissionRateBean.commissionRate.type}" id="rateType" styleClass="form-control type" binding="#{type}">
+								<f:selectItem itemValue="" itemLabel="-- Select Rate Type --" />
+								<f:selectItems value="#{rates}" var="r" itemValue="#{r}" />
+							</h:selectOneMenu>
+						</div>
+				</div>
+				
+				<div class="form-group MarRight10">
+					<h:outputLabel value="Ref Date" styleClass="control-label" />
+					<div class="input-group MarTop15">
+						<h:inputText id="refDate" styleClass="form-control datepicker refDate" binding="#{refDate}"
+							p:data-provide="datepicker" p:placeholder="YYYY/MM/DD"
+							converter="#{dateConverter}" />
+						<div class="input-group-addon">
+							<i class="fa fa-calendar"></i>
+						</div>
+					</div>
+				</div>
+				
+
+				<div class="form-group">
+						<span class="input-group-btn"> 
+						<h:commandLink action="#{commissionRateBean.search(type.value, refDate.value)}" styleClass="btn btn-primary">
+								<i class="fa fa-search"></i>
+						</h:commandLink>
+						</span>
+				</div>
+			</div>
+		</h:form>
+		<div class="row MarTop20"></div>
+		<h:form id="myform">
+			<div class="col-md-12 table-responsive">
+					<h:dataTable value="#{commissionRateBean.comRateList}" var="c"
+						styleClass="table table-striped table-hover">
+
+						<h:column>
+							<f:facet name="header">Amount From</f:facet>#{c.amountFrom}
+							</h:column>
+						<h:column>
+							<f:facet name="header">Amount To</f:facet>#{c.amountTo}
+							</h:column>
+						<h:column>
+							<f:facet name="header">Rate</f:facet>#{c.rate}
+							</h:column>
+						<h:column>
+							<f:facet name="header">Rate Type</f:facet>#{c.type}
+							</h:column>
+						<h:column>
+							<f:facet name="header">Ref Date</f:facet>
+							#{c.refDate}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Edit</f:facet>
+							<h:commandLink onclick="$('#myModal').modal('show');" immediate="true">
+								<i class="fa fa-edit" />
+								<f:ajax execute="@this" render="data" listener="#{commissionRateBean.update(c)}"></f:ajax>
+							</h:commandLink>
+						</h:column>
+						<h:column>
+							<f:facet name="header">Delete</f:facet>
+							<h:commandLink action="#{commissionRateBean.delete(c)}">
+								<i class="fa fa-remove"></i>
+							</h:commandLink>
+						</h:column>
+					</h:dataTable>
+			</div>
+		</h:form>
+
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<i class="fa fa-remove"></i>
+						</button>
+						<h4 class="modal-title">Commission Rate</h4>
+					</div>
+					<div class="modal-body">
+						<div class="panel-body">
+							<h:form class="form-horizontal" id="data">
+								<div class="form-group">
+									<h:message for="amountFrom" showDetail="true" showSummary="false" styleClass="col-sm-12 col-sm-offset-3 errMsg"/>
+									<h:outputLabel value="Amount From" for="amountFrom"
+										styleClass="col-md-3 control-label" />
+									<div class="col-md-9">
+										<div class="input-group">
+											<h:inputText styleClass="form-control" value="#{commissionRateBean.commissionRate.amountFrom}" converter="#{doubleConverter}"
+												p:placeholder="Enter Amount" id="amountFrom" required="true" requiredMessage="Must not be empty!" />
+											<div class="input-group-addon">MMK</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<h:message for="amountTo" showDetail="true" showSummary="false" styleClass="col-sm-12 col-sm-offset-3 errMsg" />
+									<h:outputLabel value="Amount To" for="amountTo"
+										styleClass="col-md-3 control-label" />
+									<div class="col-md-9">
+										<div class="input-group">
+											<h:inputText styleClass="form-control" value="#{commissionRateBean.commissionRate.amountTo}" converter="#{doubleConverter}"
+												p:placeholder="Enter Amount" id="amountTo" required="true" requiredMessage="Must not be empty!" />
+											<div class="input-group-addon">MMK</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<h:message for="rate" showDetail="true" showSummary="false" styleClass="col-sm-12 col-sm-offset-3 errMsg"/>
+									<h:outputLabel value="Rate" for="rate"
+										styleClass="col-md-3 control-label" />
+									<div class="col-md-9">
+										<h:inputText styleClass="form-control" value="#{commissionRateBean.commissionRate.rate}" converter="#{doubleConverter}"
+											p:placeholder="Enter Rate" id="rate" required="true" requiredMessage="Must not be empty!"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<h:message for="rateType" showDetail="true" showSummary="false" styleClass="col-sm-12 col-sm-offset-3 errMsg" />
+									<h:outputLabel value="Rate Type" for="rateType"
+										styleClass="col-md-3 control-label" />
+									<div class="col-md-9">
+										<h:selectOneMenu value="#{commissionRateBean.commissionRate.type}" id="rateType" styleClass="form-control" required="true" requiredMessage="Must not be empty!">
+											<f:selectItem itemValue="" itemLabel="" />
+											<f:selectItems value="#{rates}" var="r" itemValue="#{r}" />
+										</h:selectOneMenu>
+									</div>
+								</div>
+							
+								 <div class="form-group">
+								 	<h:message for="refDate" showDetail="true" showSummary="false" styleClass="col-sm-12 col-sm-offset-3 errMsg" />
+									<h:outputLabel value="Ref Date" for="refDate"
+										styleClass="col-md-3 control-label" />
+									<div class="col-md-9">
+										<div class="form-group">
+											<div class="input-group">
+												<h:inputText id="refDate" styleClass="form-control datepicker"
+													p:data-provide="datepicker" value="#{commissionRateBean.commissionRate.refDate}"
+													converter="#{dateConverter}" required="true" requiredMessage="Must not be empty!" />
+											<div class="input-group-addon">
+													<i class="fa fa-calendar"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-3"></div>
+									<div class="col-md-9">
+										<h:commandLink action="#{commissionRateBean.addRate()}" value="Save" styleClass="btn btn-primary">
+											<f:ajax execute="@form" render="@form" />
+										</h:commandLink>
+
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal">Cancel</button>
+									</div>
+								</div>
+								<script type="text/javascript">	
+								$(document).ready(function() {
+									$('.datepicker').datepicker({
+										format: 'yyyy/mm/dd',
+										autoclose: true,
+										todayHighlight: true
+									});
+							 	}
+							 	);	 
+	
+							</script>
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

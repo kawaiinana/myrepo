@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:order="http://java.sun.com/jsf/composite/order"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/WEB-INF/dashboard-template.xhtml">
+	<ui:define name="title">Order History Detail</ui:define>
+	<ui:define name="pageHeader">Order History Detail</ui:define>
+	<ui:define name="Contents">
+		<div class="col-md-12 content-wrap">
+			<br />
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Order Information</div>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<tbody>
+									<tr>
+										<td><h:outputLabel value="Order Number  " /></td>
+										<td><h:outputText value="#{orderDetailBean.order.id}" /></td>
+										<td style="width: 75%"></td>
+									</tr>
+									<tr>
+										<td><h:outputLabel value="Order Status  " /></td>
+										<td><h:outputText value="#{orderDetailBean.order.status}" /></td>
+										<td style="width: 75%"></td>
+									</tr>
+									<tr>
+										<td><h:outputLabel value="Order Date  " /></td>
+										<td><h:outputText
+												value="#{orderDetailBean.order.orderDate}" /></td>
+										<td style="width: 75%"></td>
+									</tr>
+									<tr>
+										<td><h:outputLabel value="Buyer  " /></td>
+										<td><h:link
+												value="#{orderDetailBean.order.buyer.nickname}"
+												styleClass="tooltip.in" title="Go To Swe Swe's Home" /></td>
+										<td style="width: 75%"></td>
+									</tr>
+									<tr>
+										<td><h:outputLabel value="Seller  " /></td>
+										<td><h:link
+												value="#{orderDetailBean.order.item.owner.nickname}"
+												styleClass="tooltip.in" title="Go To Tun Tun's Home" /></td>
+										<td style="width: 75%"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Order Item Detail</div>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Seller</th>
+										<th>Buyer</th>
+										<th>Item</th>
+										<th>Color</th>
+										<th>Size</th>
+										<th>Price</th>
+										<th>Qty</th>
+										<th>Amount</th>
+										<th>Sub total</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">#{orderDetailBean.order.id}</th>
+										<td><h:link
+												value="#{orderDetailBean.order.item.owner.nickname}"
+												styleClass="tooltip.in" title="Go To Tun Tun's Shop" /></td>
+										<td><h:link
+												value="#{orderDetailBean.order.buyer.nickname}"
+												styleClass="tooltip.in" title="Go To Swe Swe's Shop" /></td>
+										<td>#{orderDetailBean.order.item.name}</td>
+										<td></td>
+										<td></td>
+										<td>#{orderDetailBean.order.unitPrice}</td>
+										<td>#{orderDetailBean.order.count}</td>
+										<td></td>
+										<td></td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="row">
+			<div class="col-md-12">
+				<hr />
+				<!-- Posted Comments -->
+				<!-- Comment -->
+				<div class="col-md-12">
+					<div class="media">
+						<a class="pull-left" href="#"> <h:graphicImage
+								styleClass="img-responsive img-thumbnail" library="img"
+								name="126.jpg" width="64px" height="64px" />
+
+						</a>
+						<div class="media-body">
+							<h4 class="media-heading">
+								Swe Swe <small>August 25, 2014 at 9:30 PM</small>
+							</h4>
+							I want to order 10 pieces.
+						</div>
+					</div>
+
+					<br />
+					<!-- Comment -->
+					<div class="media">
+						<a class="pull-left" href="#"> <h:graphicImage
+								styleClass="img-responsive img-thumbnail" library="img"
+								name="126.jpg" width="64px" height="64px" />
+						</a>
+						<div class="media-body">
+							<h4 class="media-heading">
+								Tun Tun <small>August 25, 2014 at 9:30 PM</small>
+							</h4>
+							Sorry I have only left 5 pieces.Do you want to order.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>

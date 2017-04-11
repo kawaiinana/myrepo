@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://java.sun.com/jsf/passthrough"
+      xmlns:shop="http://java.sun.com/jsf/composite/shop"    
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<ui:composition template="/WEB-INF/shop-template.xhtml">	
+		<ui:define name="scriptss">
+		<script type="text/javascript">	
+		$(document).on('ready', function() {
+		      $(".regular").slick({
+		        dots: true,
+		        infinite: true,
+		        slidesToShow: 3,
+		        slidesToScroll: 3
+		      });
+		      $(".center").slick({
+		        dots: true,
+		        infinite: true,
+		        centerMode: true,
+		        slidesToShow: 3,
+		        slidesToScroll: 3
+		      });
+		      $(".variable").slick({
+		        dots: true,
+		        infinite: true,
+		        variableWidth: true
+		      });
+		      
+		    });
+		</script>
+	</ui:define>
+		
+		<ui:define name="Contents">		
+		<!-- Page Heading-->
+       <br/><br/>
+		<!-- Slider -->
+         <div class="row">
+             <div class="col-xs-12" id="slider">
+             <!-- Top part of the slider -->
+                 <div class="row">
+                    <div class="col-sm-12" >
+                         <div class="carousel slide carousel-fit" id="myCarousel">
+                         	<ol class="carousel-indicators">
+							    <li p:data-target="#myCarousel" data-slide-to="0" class="active"></li>
+							    <li p:data-target="#myCarousel" data-slide-to="1"></li>
+							    
+							  </ol>
+                              <!-- Carousel items -->
+                              <div class="carousel-inner">
+                                   <div class="active item" p:data-slide-number="0">
+                                        <h:graphicImage styleClass="d-block img-fluid" library="img" name="head.png" /> 
+                                    </div>
+                                    <div class="item" p:data-slide-number="1">
+                                       	<h:graphicImage styleClass="d-block img-fluid" library="img" name="head.png" />
+                                    </div> 
+                                    
+                                    <!-- Carousel nav -->
+	                              <a class="left carousel-control" href="#myCarousel" p:role="button" data-slide="prev">
+	                                 <span class="fa fa-chevron-left" style="position: absolute;top: 45%;" ></span>                                      
+	                              </a> 
+	                              <a class="right carousel-control" href="#myCarousel" p:role="button" data-slide="next">
+	                                 <span class="fa fa-chevron-right" style="position: absolute;top: 45%;"></span>                                   
+	                              </a>                                      
+                              </div>                                                             
+                         </div>
+                    </div>
+                  </div>
+             </div>
+        </div><!--/Slider-->        
+		<br/>
+		
+		 <h3 align="center"><h:link outcome="/home/category" value="Category"/></h3>
+		 <h4 align="center"><h:link outcome="/member/product-listing" value="Women"/> </h4>
+      	<!-- Page Features -->
+        <div class="row text-center">
+
+            <div class="col-md-3 col-sm-6">
+           		<shop:item></shop:item>
+            </div>
+			
+            <div class="col-md-3 col-sm-6">
+                <shop:item></shop:item>
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+                <shop:item></shop:item>
+                
+            </div>
+
+            <div class="col-md-3 col-sm-6 hero-feature">
+               <shop:item></shop:item>
+            </div>
+        </div> <!-- /.women row -->  
+        
+        <h3 align="center"><h:link outcome="/member/product-listing"/></h3>
+          
+      
+		<h4 align="center"><h:link outcome="/member/product-listing" value="Men"/> </h4>
+      	<!-- Page Features -->
+        <div class="row text-center">
+
+            <div class="col-md-3 col-sm-6 ">
+             	<shop:item></shop:item>
+            </div>
+			
+            <div class="col-md-3 col-sm-6 ">
+               <shop:item></shop:item>
+            </div>
+
+            <div class="col-md-3 col-sm-6 ">
+               <shop:item></shop:item>
+            </div>
+
+            <div class="col-md-3 col-sm-6 ">
+             	<shop:item></shop:item>
+            </div>
+        </div>
+         <!-- /.men row -->  
+        
+		  	<script>
+		       jQuery(document).ready(function($) {
+	 
+	        $('#myCarousel').carousel({
+	                interval: 5000
+	        });
+	 
+	        $('#carousel-text').html($('#slide-content-0').html());
+	 
+	        //Handles the carousel thumbnails
+	       $('[id^=carousel-selector-]').click( function(){
+	            var id = this.id.substr(this.id.lastIndexOf("-") + 1);
+	            var id = parseInt(id);
+	            $('#myCarousel').carousel(id);
+	        });
+	 
+	 
+	        // When the carousel slides, auto update the text
+	        $('#myCarousel').on('slid.bs.carousel', function (e) {
+	                 var id = $('.item.active').data('slide-number');
+	                $('#carousel-text').html($('#slide-content-'+id).html());
+	        });
+			});   
+		  </script>     
+	    
+	        	       
+		</ui:define>	
+		
+	</ui:composition>
+</html>

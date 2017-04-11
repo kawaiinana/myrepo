@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:post="http://java.sun.com/jsf/composite/post"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/WEB-INF/dashboard-template.xhtml">
+	<ui:define name="title">State</ui:define>
+	<ui:define name="pageHeader">State</ui:define>
+	<ui:define name="Contents">
+		
+		<h:form styleClass="form-inline myForm">
+			<div class="form-group">
+				<h:outputLabel value="Country" for="country" styleClass="control-label MarRight10" />
+				<h:selectOneMenu  styleClass="form-control MarTop5 MarRight10">
+					<f:selectItems value="#{countryBean.countries}" var="c" itemLabel="#{c.name}" itemValue="#{c.name}" />
+				</h:selectOneMenu>
+			</div>
+			
+			<div class="form-group">
+				<h:commandLink action="#" styleClass="btn btn-primary form-control">
+					<i class="fa fa-search"></i>
+				</h:commandLink>
+			</div>
+		</h:form>
+		<h:form id="myform">
+			<div class="row">
+				<div class="col-md-12 table-responsive MarTop10">
+					<h:dataTable value="#{stateBean.states}" var="s"
+						styleClass="table table-striped table-hover">
+						<h:column>
+							<f:facet name="header">Country Name</f:facet>#{s.country.name}
+								</h:column>
+						<h:column>
+							<f:facet name="header">Default Name</f:facet> #{s.name}
+						</h:column>						
+						<h:column>
+							<f:facet name="header">Remove</f:facet>
+							<h:commandLink >
+								<i class="fa fa-remove"></i>
+							</h:commandLink>
+							
+						</h:column>
+					</h:dataTable>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>

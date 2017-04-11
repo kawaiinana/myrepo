@@ -1,0 +1,73 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition template="/WEB-INF/shop-template.xhtml">
+
+	<ui:define name="title">Change  Password</ui:define>
+	<ui:define name="Contents">
+		<div class="row">
+			<div class="col-md-12">
+				<h4 class="page-header">Change Password</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-9">
+				<h:form class="form-horizontal">
+					<div class="form-group">
+						<h:outputLabel value="Email" for="em"
+							styleClass="col-md-3 control-label col-md-offset-2" />
+						<div class="col-md-5">
+							<h:inputText readonly="true" styleClass="form-control"
+								p:placeholder="mail@Email.com" value="" id="em" />
+						</div>
+					</div>
+					<div class="form-group">
+						<h:outputLabel value="Current Password" for="cp"
+							styleClass="col-md-3 control-label col-md-offset-2" />
+						<div class="col-md-5">
+							<h:inputSecret styleClass="form-control"
+								p:placeholder="Enter Current Password" value="" id="cp" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<h:outputLabel value="New Password" for="np"
+							styleClass="col-md-3 control-label col-md-offset-2" />
+						<div class="col-md-5">
+							<h:inputSecret styleClass="form-control"
+								p:placeholder="Enter New Password" value="" id="np" />
+						</div>
+					</div>
+
+					<div class="form-group">						
+						<h:outputLabel value="Confirm Password" for="rnp"
+							styleClass="col-md-3 control-label col-md-offset-2" />
+						<div class="col-md-5">
+							<h:inputSecret styleClass="form-control"
+								p:placeholder="Re-type New Password" value="" id="rnp" />
+						</div>
+					</div>
+					<div class="form-group">						
+						<div class="col-md-3 col-md-offset-2"></div>
+						<div class="col-md-5">
+							<h:link styleClass="btn btn-primary" value="Save" />
+							<button type="reset" class="btn btn-default">Cancel</button>
+						</div>
+					</div>
+				</h:form>
+			</div>
+			<div class="col-md-3">
+				<ui:include src="/WEB-INF/shop-side-menu.xhtml" />
+			</div>
+		</div>
+		<script type="text/javascript">	
+			$( document ).ready(function() {			
+				$("#li_account").addClass("active");
+		 	});	 
+		</script>
+	</ui:define>
+</ui:composition>
+</html>

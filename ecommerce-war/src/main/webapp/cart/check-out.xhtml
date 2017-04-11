@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:shop="http://java.sun.com/jsf/composite/shop"
+	xmlns:h="http://java.sun.com/jsf/html">
+<ui:composition template="/WEB-INF/shop-template.xhtml">
+
+	<ui:define name="title">Cart</ui:define>
+
+	<ui:define name="Contents">
+		<div class="col-md-12">
+			<h4 class="page-header">Check Out</h4>
+		</div>
+		<div class="col-md-9">
+			<div class="wizard">
+				<div class="wizard-inner">
+					<div class="connecting-line"></div>
+					<ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" class="active"><a href="#step1"
+							data-toggle="tab" aria-controls="step1" role="tab" title="Step 1">
+								<span class="round-tab"> <i class="fa fa-address-book"
+									aria-hidden="true"></i>
+							</span>
+						</a></li>
+						<li role="presentation" class="disabled"><a href="#step2"
+							data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
+								<span class="round-tab"> <i class="fa fa-credit-card"
+									aria-hidden="true"></i>
+							</span>
+						</a></li>
+						<li role="presentation" class="disabled"><a href="#step3"
+							data-toggle="tab" aria-controls="step3" role="tab" title="Step 3">
+								<span class="round-tab"> <i class="fa fa-file-image-o"
+									aria-hidden="true"></i>
+							</span>
+						</a></li>
+
+						<li role="presentation" class="disabled"><a href="#complete"
+							data-toggle="tab" aria-controls="complete" role="tab"
+							title="Complete"> <span class="round-tab"> OK </span>
+						</a></li>
+					</ul>
+				</div>
+
+				<h:form class="form-horizontal" >
+					<div class="tab-content">
+						<div class="tab-pane active" role="tabpanel" id="step1">
+								<div class="col-md-12">
+									<div class="form-group">
+										<h:selectOneRadio value="#{checkOutBean.item}"
+											onclick="show(this.value)" styleClass="col-lg-5">
+											<f:selectItems value="#{checkOutBean.items}" />
+										</h:selectOneRadio>
+									</div>
+								</div>
+
+							<div class="row" id="oldshipa">
+								<div class="col-md-12">
+									<div class="form-group">
+										<h:outputText styleClass="col-md-12"
+											value="Country - Myanmar [Burma]" />
+										<h:outputText styleClass="col-md-12"
+											value="State - Yangon Region" />
+										<h:outputText styleClass="col-md-12" value="City - Yangon" />
+										<h:outputText styleClass="col-md-12"
+											value="Postal Code - 1141" />
+										<h:outputText styleClass="col-md-12"
+											value="Street - TiDar Road, middle block, between 18 street and 19th street" />
+										<h:outputText styleClass="col-md-12"
+											value="Building Name - No.1,Lathaw" />
+										<h:outputText styleClass="col-md-12"
+											value="Phone - 09255555555" />
+
+									</div>
+								</div>
+								<div class="col-md-12">
+									<a href="#payment" data-toggle="collapse" title="Next Step"
+										class="btn btn-primary fa fa-arrow-right pull-right next-step MarBottom10">
+										Next</a>
+								</div>
+							</div>
+
+							<div class="panel-body" style="display: none" id="newshipa">
+								<div class="col-md-12">
+									<div class="form-group">
+										<h:outputLabel value="Recipient Name" for="RN"
+											styleClass="col-md-3 control-label" />
+										<div class="col-md-5">
+											<h:inputText styleClass="form-control" value=""
+												p:placeholder="Enter Recipient Name" id="RN" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="Recipient Phone" for="RP"
+											styleClass="col-md-3 control-label" />
+										<div class="col-md-5">
+											<h:inputText styleClass="form-control" value=""
+												p:placeholder="Enter Recipient Phone" id="RP" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="Country" for="c"
+											styleClass="col-md-3 control-label" />
+										<div class="col-md-5">
+											<h:selectOneMenu styleClass="form-control"
+												value="#{countryBean}" id="c">
+												<f:selectItem itemLabel="-- Select Country --" />
+												<f:selectItems value="#{countryBean.countries}" var="r"
+													itemLabel="#{r.name}" itemValue="#{r.name}"></f:selectItems>
+											</h:selectOneMenu>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="State" for="st"
+											styleClass="col-md-3 control-label" />
+										<div class="col-md-5">
+											<h:selectOneMenu styleClass="form-control"
+												value="#{stateBean}" id="st">
+												<f:selectItem itemLabel="-- Select State --" />
+												<f:selectItems value="#{stateBean.states}" var="r"
+													itemLabel="#{r.name}" itemValue="#{r.name}"></f:selectItems>
+											</h:selectOneMenu>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="City" for="city"
+											styleClass="col-md-3 control-label" />
+										<div class="col-md-5">
+											<h:selectOneMenu styleClass="form-control"
+												value="#{cityBean}" id="city">
+												<f:selectItem itemLabel="-- Select City --" />
+												<f:selectItems value="#{cityBean.cities}" var="r"
+													itemLabel="#{r.name}" itemValue="#{r.name}"></f:selectItems>
+											</h:selectOneMenu>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="Postal Code" for="pc"
+											styleClass="col-md-3 control-label" />
+										<div class="col-md-5">
+											<h:inputText styleClass="form-control" value=""
+												p:placeholder="Enter Postal Code" id="pc" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="Street" for="sta"
+											styleClass="col-md-3 control-label" />
+										<div class="col-md-5">
+											<h:inputText styleClass="form-control" value=""
+												p:placeholder="Enter Street" id="sta" />
+										</div>
+									</div>
+
+									<div class="form-group">
+										<h:outputLabel value="Building Name" for="bn"
+											styleClass="col-md-3 control-label" />
+										<div class="col-md-5">
+											<h:inputText styleClass="form-control" value=""
+												p:placeholder="Enter Building Name" id="bn" />
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<a href="#payment" data-toggle="collapse" title="Next Step"
+										class="btn btn-primary fa fa-arrow-right pull-right next-step  MarBottom10">
+										Next</a>
+								</div>
+							</div>
+
+
+						</div>
+						<div class="tab-pane" role="tabpanel" id="step2">
+							<div class="panel-body">
+								<div class="col-md-12">
+									<div class="form-group">
+										<h:outputLabel value="Payment" for="p" styleClass="col-md-3 control-label" />
+										<div class="col-md-5">
+											<h:selectOneMenu styleClass="form-control drpdown"
+												value="#{paymentBean.selectedItem}" id="p"
+												onchange="function()">
+												<f:selectItem itemValue="-- Select Payment --" />
+												<f:selectItems value="#{paymentBean.availableItems}" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+
+									<!-- insert credit card -->
+									<div id="div_credit" style="display: none;">
+										<div class="form-group">
+											<h:outputLabel value="Card Number" for="cardnumber"
+												styleClass="col-md-3 control-label" />
+											<div class="col-md-5">
+												<div class="input-group">
+													<h:inputText styleClass="form-control" value=""
+														p:placeholder="Enter Card Number" id="cardnumber" />
+													<div class="input-group-addon">
+														<i class="fa fa-credit-card"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<h:outputLabel value="Card Holder Name" for="cardholdername"
+												styleClass="col-md-3 control-label" />
+											<div class="col-md-5">
+												<h:inputText styleClass="form-control" value=""
+													p:placeholder="Enter Card Holder Name" id="cardholdername" />
+											</div>
+										</div>
+
+										<div class="form-group">
+											<h:outputLabel value="Security Code" for="securitycode"
+												styleClass="col-md-3 control-label" />
+											<div class="col-md-5">
+												<h:inputText styleClass="form-control" value=""
+													p:placeholder="Enter Security Code" id="securitycode" />
+											</div>
+										</div>
+
+										<div class="form-group">
+											<h:outputLabel value="Expired Date" for="date"
+												styleClass="col-md-3 control-label" />
+											<div class="col-md-5">
+												<div class="input-group">
+													<h:inputText styleClass="form-control datepicker" value=""
+														p:placeholder="MM/DD/YYYY" id="date" />
+													<div class="input-group-addon">
+														<i class="fa fa-calendar"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group" style="display: none" id="sub">
+										<h:outputLabel value="Payment Provider" for="pp"
+											styleClass="col-md-3 control-label" />
+										<div class="col-md-5">
+											<h:selectOneMenu styleClass="form-control"
+												value="#{paymentProviderBean.payType}" id="pp">
+												<f:selectItem itemLabel="-- Select Payment Provider --" />
+												<f:selectItems value="#{paymentProviderBean.payments}"
+													var="r" itemLabel="#{r.name}" itemValue="#{r.name}"></f:selectItems>
+											</h:selectOneMenu>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-3"></div>
+								<div class="col-md-12">
+									<a href="#result" data-toggle="collapse" title="Next Step"
+										class="btn btn-primary fa fa-arrow-right pull-right next-step  MarBottom10">
+										Next</a>
+									<button type="button"
+										class="btn btn-primary fa fa-arrow-left pull-right prev-step  MarBottom10">
+										Previous</button>
+								</div>
+							</div>
+
+						</div>
+						<div class="tab-pane" role="tabpanel" id="step3">
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Item</th>
+												<th>Color</th>
+												<th>Size</th>
+												<th>Price</th>
+												<th>Qty</th>
+												<th>Amount</th>
+												<th>Total</th>
+												<th></th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>1</td>
+												<td>Skirt</td>
+												<td>Yellow</td>
+												<td>Middle</td>
+												<td>$3,500</td>
+												<td>10</td>
+												<td>$35,000</td>
+												<td>$35,0000</td>
+												<td></td>
+												<td></td>
+
+											</tr>
+											<tr>
+												<td colspan="8"></td>
+												<td>Total</td>
+												<td>$35,100</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="col-md-8">
+									<h:selectBooleanCheckbox value="0" id="chkRememberMe"
+										styleClass="cb" onchange="function()" />
+									<h:link value="I agree to terns of services." outcome="/member/term-and-service" />
+								</div>
+								<div class="col-md-4" style="display: none" id="t">
+									<a href="#" data-toggle="collapse" title="Next Step"
+										class="btn btn-primary fa fa-arrow-right pull-right next-step  MarBottom10">
+										Next</a>
+									<button type="button"
+										class="btn btn-primary fa fa-arrow-left pull-right prev-step  MarBottom10">
+										Previous</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="tab-pane" role="tabpanel" id="complete">
+							<h1 class="header-class" style="text-align: center;">
+								<b>Thank You</b>
+							</h1>
+							<h5 style="text-align: center;">Your order was completed
+								successfully</h5>
+							<br></br> <br></br>
+							<h4 style="text-align: center;">Please keep it for your
+								records.</h4>
+							<h4 style="text-align: center;">You can check the status of
+								your order in your purchase history.</h4>
+							<br />
+							<div class="col-md-4"></div>
+							<div class="col-md-4">
+								<h:graphicImage class="img-responsive" library="img"
+									alt="Cinque Terre" name="thank.jpg" />
+							</div>
+							<div class="col-md-12">
+								<h:link styleClass="btn btn-primary  pull-right MarBottom10"
+									outcome="/member/my-purchase-history" value="Finish" />
+							</div>
+						</div>			
+						<div class="clearfix"></div>
+					</div>
+				</h:form>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<ui:include src="/WEB-INF/shop-side-menu.xhtml" />
+		</div>
+
+		<script type="text/javascript">		
+	function show(type) {
+	    //console.log(type);
+	    switch( type) {
+	        case 'UsedDefaultAddress' : $("#oldshipa").show();$("#newshipa").hide();
+	                   break;
+	        case 'NewAddress' : $("#newshipa").show();$("#oldshipa").hide();
+	                   break;
+	    }   
+	}
+	$(function () {        
+        $(".cb").change(function () {
+        	$("#t").show();       	
+       
+        });
+    });
+	
+	$(function () {
+        //Attach click event to your Dropdownlist
+        $(".drpdown").change(function () {
+            //Get the selected valu of dropdownlist
+            selection = $(this).val();
+            //If its one then show the dialog window. You can change this condition as per your need
+            if (selection == 'BankAccount') {
+            	$("#sub").show();
+                $("#div_credit").hide();
+            }
+            else if (selection == 'CreditCard') {
+                $("#div_credit").show();
+                $("#sub").hide();
+            }
+        });
+    });
+</script>
+
+
+	</ui:define>
+</ui:composition>
+
+
+</html>

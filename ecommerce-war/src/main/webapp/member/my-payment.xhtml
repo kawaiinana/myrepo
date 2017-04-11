@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"     
+      xmlns:h="http://java.sun.com/jsf/html">
+	<ui:composition template="/WEB-INF/shop-template.xhtml">	
+		
+		<ui:define name="title">My Payment</ui:define>
+		<ui:define name="Contents">
+		<div class="row">
+			<div class="col-md-12">
+			<h4 class="page-header">Payment</h4>
+			</div>
+		</div>
+		<div class="row">
+		 
+			 <div class="col-md-9">	      	 		
+	      	 		<h:form class="form-horizontal">	         			
+	         			<div class="form-group" >
+	            			<h:outputLabel value="Payment" for="p" styleClass="col-lg-2 control-label  col-lg-offset-2"/>
+		            		<div class="col-lg-5">
+		            			<h:selectOneMenu  styleClass="form-control drpdown" value="#{paymentBean.selectedItem}" id="p" onchange="function()">								
+									<f:selectItem itemValue="-- Select Payment --"/>
+									<f:selectItems value="#{paymentBean.availableItems}" />					
+								</h:selectOneMenu>
+		            		</div>
+	            		</div>
+	            		
+	            		<!-- insert credit card -->            		
+	            		<div id="div_credit" style="display:none;">
+		            		<div class="form-group">
+		            			<h:outputLabel value="Card Number" for="cardnumber" styleClass="col-lg-2 control-label  col-lg-offset-2" />
+			            		<div class="col-lg-5">
+				            		<div class="input-group">
+				            			<h:inputText styleClass="form-control" value="" p:placeholder="Enter Card Number" id="cardnumber"/>
+					            		<div class="input-group-addon">
+										<i class="fa fa-credit-card"></i>
+										</div>
+									</div>
+			            		</div>
+		            		</div>
+	            		
+		            		<div class="form-group">
+		            			<h:outputLabel value="Card Holder Name" for="cardholdername" styleClass="col-lg-2 control-label  col-lg-offset-2" />
+			            		<div class="col-lg-5">
+			            			<h:inputText styleClass="form-control" value="" p:placeholder="Enter Card Holder Name" id="cardholdername"/>
+			            		</div>
+		            		</div>
+	            		
+		            		<div class="form-group">
+		            			<h:outputLabel value="Security Code" for="securitycode" styleClass="col-lg-2 control-label  col-lg-offset-2" />
+			            		<div class="col-lg-5">
+			            			<h:inputText styleClass="form-control" value="" p:placeholder="Enter Security Code" id="securitycode"/>
+			            		</div>
+		            		</div>
+	            		
+		            		<div class="form-group">
+		            				<h:outputLabel value="Expired Date" for="date" styleClass="col-lg-2 control-label  col-lg-offset-2" />            		
+								<div class="col-lg-5">					
+									<div class="input-group">							      		
+										<h:inputText styleClass="form-control datepicker" value="" p:placeholder="MM/DD/YYYY" id="date"/>
+										<div class="input-group-addon">
+										<i class="fa fa-calendar"></i>
+										</div>
+									</div>  
+								</div>
+							
+		            		</div>
+	            		</div>
+	            		     
+	            		 <!-- insert credit card -->            		
+	            		<div  id="sub" style="display:none;">
+	            		<div class="form-group">
+		            		<h:outputLabel value="Payment Provider" for="pp" styleClass="col-lg-2 control-label  col-lg-offset-2"/>
+		            		<div class="col-lg-5">
+		            		<h:selectOneMenu  styleClass="form-control" value="#{paymentProviderBean.payType}" id="pp">								
+								<f:selectItem itemLabel="-- Select Payment Provider --" />
+								<f:selectItems value="#{paymentProviderBean.payments}" var="r" itemLabel="#{r.name}" itemValue="#{r.name}"></f:selectItems>						
+							</h:selectOneMenu>
+		            		</div>
+	            		</div>
+	            		
+	            		<div class="form-group">
+	            			<h:outputLabel value="Account Number" for="accNo" styleClass="col-lg-2 control-label  col-lg-offset-2" />
+	            		<div class="col-lg-5">
+	            			<h:inputText styleClass="form-control" value="" p:placeholder="Enter Account No" id="accNo"/>
+	            		</div>
+	            		</div>
+	            		
+	            		<div class="form-group">
+	            			<h:outputLabel value="Account Holder Name" for="accName" styleClass="col-lg-2 control-label  col-lg-offset-2" />
+	            		<div class="col-lg-5">
+	            			<h:inputText styleClass="form-control" value="" p:placeholder="Enter Account Holder Name" id="accName"/>
+	            		</div>
+	            		</div>
+	            		</div> 
+	            		     		
+	            		<div class="form-group">            		
+	            		<div class="col-lg-8 col-lg-offset-4">            		
+	            			<h:commandButton action="#{profileBean.addAction()}" value="Save"
+							styleClass="btn btn-primary MarRight10" />						
+						<button type="reset" class="btn btn-default">Cancel</button>	    				            		
+	            		</div>
+	            		</div>	            		
+	         		</h:form>      		
+	         </div>
+	         <div class="col-md-3">
+				<ui:include src="/WEB-INF/shop-side-menu.xhtml" />		
+			</div>	
+		</div> 
+		 <script type="text/javascript">	
+			$( document ).ready(function() {			
+				$("#li_payment").addClass("active");				
+				$(document).ready(function() {
+					  $(".datepicker").datepicker({
+					    showOn: "button",
+					    buttonImage: "images/calendar.gif",
+					    buttonImageOnly: true})
+					});			
+			 });
+
+			function openModal(){
+				/* $('#modalCantidadReservasMensuales').modal('show'); */
+				$('#filter').hide(); 	
+						  
+			}  
+
+			$(function () {
+                //Attach click event to your Dropdownlist
+                $(".drpdown").change(function () {
+                    //Get the selected valu of dropdownlist
+                    selection = $(this).val();
+                    //If its one then show the dialog window. You can change this condition as per your need
+                    if (selection == 'BankAccount') {
+                    	$("#sub").show();
+                        $("#div_credit").	hide();
+                    }
+                    else if (selection == 'CreditCard') {
+                        $("#div_credit").show();
+                        $("#sub").hide();
+                    }
+                });
+            });
+			
+			
+			
+		</script>
+	
+		</ui:define>	
+	</ui:composition>
+</html>

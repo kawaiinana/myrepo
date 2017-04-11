@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:post="http://java.sun.com/jsf/composite/post"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<ui:composition template="/WEB-INF/dashboard-template.xhtml">
+	<ui:define name="title">Payment Provider</ui:define>
+	<ui:define name="Contents">
+
+		<div class="row">
+			<div class="col-md-12">
+				<h2 class="page-header">Payment Provider</h2>
+				<ol class="breadcrumb">
+					<li><h:link outcome="/admin/home.html">Home</h:link></li>
+					<li class="active">Payment Provider</li>
+				</ol>
+			</div>
+		</div>
+
+
+		<!-- Payment Provider Add -->
+		<h:form styleClass="form-horizontal">
+			<div class="box-body">
+				<div class="box-body">
+					<div class="form-group">
+						<h:outputLabel value="Name" styleClass="col-md-2 control-label" />
+						<div class="col-md-4">
+							<h:inputText value="#{paymentProviderBean.name}"
+								styleClass="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<h:outputLabel value="Payment Type"
+							styleClass="col-md-2 control-label" />
+						<div class="col-md-4">
+							<h:inputText value="#{paymentProviderBean.payType}"
+								styleClass="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<h:outputLabel value="Image" styleClass="col-md-2 control-label" />
+						<div class="col-md-4">
+							<h:inputFile id="file" value="#{paymentProviderBean.imgPath}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<h:outputLabel value="Description"
+							styleClass="col-md-2 control-label" />
+						<div class="col-md-4">
+							<h:inputTextarea value="#{paymentProviderBean.description}"
+								styleClass="form-control" rows="4" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-4">
+							<h:commandButton action="#{paymentProviderBean.AddAction()}"
+								value="Save" styleClass="btn btn-primary" />
+							&nbsp;
+							<button type="reset" class="btn btn-default">Cancel</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- Payment Provider List -->
+			<div class="row">
+				<div class="col-md-12">
+					<h3 class="page-header">Payment List</h3>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-9">
+					<h:form>
+						<h:commandLink styleClass="btn btn-default"
+							onclick="$('#myModal').modal('show');" immediate="true">
+							<i class="fa fa-trash-o"></i>
+							<f:ajax execute="@this" render=":myForm" />
+						</h:commandLink>
+					</h:form>
+					<div class="modal fade" id="myModal" p:tabindex="-1"
+						p:role="dialog" p:aria-labelledby="myModal" p:aria-hidden="true"
+						p:data-keyboard="false" p:data-backdrop="static">
+						<div class="modal-dialog modal-sm">
+							<div class="modal-content">
+								<h:form id="myForm">
+									<div class="modal-header">
+										<h4>Confirm?</h4>
+									</div>
+									<div class="modal-body">
+										<h:outputLabel value="Are you sure to delete?" />
+									</div>
+									<h:panelGroup layout="block" styleClass="modal-footer">
+										<h:commandLink value="Yes" immediate="true"
+											styleClass="btn btn-primary"
+											oncomplete="$('#myModal').modal('hide');">
+										</h:commandLink>
+										<h:commandLink value="No" immediate="true"
+											styleClass="btn btn-default"
+											oncomplete="$('#myModal').modal('hide');" />
+									</h:panelGroup>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="input-group">
+						<h:inputText styleClass="form-control" />
+						<span class="input-group-btn"> <h:link
+								styleClass="btn btn-primary">
+								<i class="fa fa-search"></i>
+							</h:link>
+						</span>
+					</div>
+				</div>
+			</div>
+		</h:form>
+
+		<h:form>
+			<div class="row">
+				<div class="col-md-12 table-responsive">
+					<h:dataTable value="#{paymentProviderBean.payments}" var="p"
+						styleClass="table table-bordered table-hover">
+						<h:column>
+							<f:facet name="header">
+								<h:commandLink action="#{paymentProviderBean.checkAll()}">
+									<h:selectBooleanCheckbox
+										value="#{paymentProviderBean.checkAll}" />
+									<f:ajax execute="@this" render="@form" />
+								</h:commandLink>
+							</f:facet>
+							<h:selectBooleanCheckbox value="#{p.check}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Name</f:facet>#{p.name} 
+						</h:column>
+						<h:column>
+							<f:facet name="header">Payment Type</f:facet> #{p.payType}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Description</f:facet> #{p.description}
+						</h:column>
+						<h:column>
+							<f:facet name="header">Image Logo</f:facet> #{p.imgPath}
+									<h:graphicImage value="/resources/img/kbz.jpg" height="20"
+								width="20" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Edit</f:facet>
+							<h:link>
+								<i class="fa fa-edit"></i>
+							</h:link>
+						</h:column>
+					</h:dataTable>
+				</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+</html>
